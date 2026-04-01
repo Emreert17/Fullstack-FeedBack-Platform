@@ -5,6 +5,7 @@ import PasswordInput from "./PasswordInput";
 import SecurityHeader from "./SecurityHeader";
 import usePasswordForm from "../../../../hooks/usePasswordForm";
 import { useRouter } from "next/navigation";
+import Button from "../../../../../components/ui/Button";
 export default function UpdatePassword() {
   const { toggle, password, handleChange, handleToggle, setPassword } =
     usePasswordForm();
@@ -95,12 +96,9 @@ export default function UpdatePassword() {
             <p className="text-sm font-medium text-rose-500">
               {message && message}
             </p>
-            <button
-              className="w-25 text-sm border border border-stone-800 ease-in-out duration-400 bg-stone-800 hover:bg-stone-50 hover:text-stone-800 text-stone-50 px-[16px] py-[5px] rounded-md cursor-pointer"
-              type="submit"
-            >
+            <Button width="w-25" variant="secondary" type="submit">
               Update
-            </button>
+            </Button>
           </form>
         </div>
       </div>

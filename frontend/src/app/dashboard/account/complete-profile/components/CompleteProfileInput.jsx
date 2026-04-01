@@ -1,20 +1,26 @@
-export default function CompleteProfileInput({ info }) {
+export default function CompleteProfileInput({ info, handleChange, value }) {
   return (
     <>
       <div className={`${info.input ? "" : "col-span-2"}`}>
-        <label className="text-xs font-medium">{info.label}</label>
+        <label className="text-xs font-medium" htmlFor={info.name}>
+          {info.label}
+        </label>
         {info.input ? (
           <>
             <input
-              className="w-full text-sm border-2 border-stone-300 p-[4px] rounded-md"
+              onChange={handleChange}
+              value={value}
+              className="w-full text-sm border-2 border-stone-300 p-[6px] rounded-md"
               type="text"
+              placeholder={info.placeholder}
+              name={info.name}
             />
           </>
         ) : (
           <>
             <textarea
               className="w-full h-25 text-sm border-2 border-stone-300 p-[6px] rounded-md"
-              placeholder="A short bio about yourself..."
+              placeholder={info.placeholder}
               name=""
               id=""
             ></textarea>

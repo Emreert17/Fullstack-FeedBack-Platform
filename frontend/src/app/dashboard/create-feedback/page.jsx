@@ -1,4 +1,4 @@
-import FeedBackForm from "./components/FeedBackForm";
+import FeedBackForm from "./components/FeedbackForm";
 import RouteHeader from "../../../components/RouteHeader/RouteHeader";
 
 export default function CreateFeedBack() {

@@ -5,6 +5,15 @@ import { MdLock } from "react-icons/md";
 import { RiUserSettingsFill } from "react-icons/ri";
 import { PiUserCircleCheckBold } from "react-icons/pi";
 
+export const loginInput = [
+  { id: 2, name: "email", type: "email", placeholder: "Email" },
+  { id: 3, name: "password", type: "password", placeholder: "Password" },
+];
+export const registerInput = [
+  { id: 1, name: "username", type: "text", placeholder: "Name" },
+  { id: 2, name: "email", type: "email", placeholder: "Email" },
+  { id: 3, name: "password", type: "password", placeholder: "Password" },
+];
 export const sidebarLinks = [
   {
     id: 1,
@@ -80,6 +89,35 @@ export const statusSpan = [
   { status: "in-progress", color: "bg-blue-300" },
   { status: "done", color: "bg-green-300" },
 ];
+export const createFeedback = [
+  {
+    id: 1,
+    name: "title",
+    label: "Title",
+    type: "input",
+    placeholder: "Enter a title",
+  },
+  {
+    id: 2,
+    name: "category",
+    label: "Category",
+    type: "select",
+    options: [
+      { value: "feature", label: "Feature" },
+      { value: "bug", label: "Bug" },
+      { value: "ui", label: "UI" },
+      { value: "ux", label: "UX" },
+      { value: "enhancement", label: "Enhancement" },
+    ],
+  },
+  {
+    id: 3,
+    name: "description",
+    label: "Description",
+    type: "textarea",
+    placeholder: "Describe your feedback...",
+  },
+];
 export const quickLinks = [
   {
     id: 1,
@@ -101,11 +139,47 @@ export const quickLinks = [
   },
 ];
 export const completeProfileİnfo = [
-  { id: 1, label: "Job title", input: true },
-  { id: 2, label: "Department", input: true },
-  { id: 3, label: "Company name", input: true },
-  { id: 4, label: "Company size", input: true },
-  { id: 5, label: "Country", input: true },
-  { id: 6, label: "City", input: true },
-  { id: 7, label: "Bio", input: false },
+  {
+    id: 1,
+    name: "jobtitle",
+    label: "Job title",
+    input: true,
+    placeholder: "Job title",
+  },
+  {
+    id: 2,
+    name: "department",
+    label: "Department",
+    input: true,
+    placeholder: "Department",
+  },
+  {
+    id: 3,
+    name: "companyname",
+    label: "Company name",
+    input: true,
+    placeholder: "Company name",
+  },
+  {
+    id: 4,
+    name: "companysize",
+    label: "Company size",
+    input: true,
+    placeholder: "Company size",
+  },
+  {
+    id: 5,
+    name: "country",
+    label: "Country",
+    input: true,
+    placeholder: "Country",
+  },
+  { id: 6, name: "city", label: "City", input: true, placeholder: "City" },
+  {
+    id: 7,
+    name: "bio",
+    label: "Bio",
+    input: false,
+    placeholder: "A short bio about yourself...",
+  },
 ];

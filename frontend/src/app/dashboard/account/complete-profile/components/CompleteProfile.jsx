@@ -1,8 +1,25 @@
+"use client";
+import { useState } from "react";
 import { completeProfileİnfo } from "../../../../data/data";
 import CompleteProfileInput from "./CompleteProfileInput";
 import WorkDetailsHeader from "./WorkDetailsHeader";
 
 export default function CompleteProfileForm() {
+  const [form, setForm] = useState({
+    jobtitle: "",
+    department: "",
+    companyname: "",
+    companysize: "",
+    country: "",
+    city: "",
+    bio: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
   return (
     <>
       <div className="w-180">
@@ -11,7 +28,12 @@ export default function CompleteProfileForm() {
           <form>
             <div className="grid grid-cols-2 gap-5">
               {completeProfileİnfo.map((info) => (
-                <CompleteProfileInput key={info.id} info={info} />
+                <CompleteProfileInput
+                  key={info.id}
+                  handleChange={handleChange}
+                  value={form[info.name]}
+                  info={info}
+                />
               ))}
             </div>
             <button
