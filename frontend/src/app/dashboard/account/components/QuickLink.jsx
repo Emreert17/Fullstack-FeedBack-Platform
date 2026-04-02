@@ -4,7 +4,7 @@ import { MdKeyboardArrowRight } from "react-icons/md";
 export default function QuickLink({ link }) {
   return (
     <>
-      <div className="flex justify-between items-center gap-4 py-[8px] px-[4px] border-b-2 border-stone-200 rounded-md hover:bg-amber-50">
+      <div className="flex justify-between items-center gap-4 py-[8px] px-[4px] border-b-2 border-stone-200 rounded-md hover:bg-yellow-50">
         <div className={`${link.color} text-stone-800 p-1 rounded-full`}>
           <span>{React.createElement(link.icon, { size: 20 })}</span>
         </div>

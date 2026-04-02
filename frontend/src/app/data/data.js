@@ -3,16 +3,47 @@ import { IoAnalytics } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdLock } from "react-icons/md";
 import { RiUserSettingsFill } from "react-icons/ri";
+import { FaEnvelope } from "react-icons/fa";
 import { PiUserCircleCheckBold } from "react-icons/pi";
 
 export const loginInput = [
-  { id: 2, name: "email", type: "email", placeholder: "Email" },
-  { id: 3, name: "password", type: "password", placeholder: "Password" },
+  {
+    id: 2,
+    name: "email",
+    type: "email",
+    placeholder: "Email",
+    icon: FaEnvelope,
+  },
+  {
+    id: 3,
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    icon: MdLock,
+  },
 ];
 export const registerInput = [
-  { id: 1, name: "username", type: "text", placeholder: "Name" },
-  { id: 2, name: "email", type: "email", placeholder: "Email" },
-  { id: 3, name: "password", type: "password", placeholder: "Password" },
+  {
+    id: 1,
+    name: "username",
+    type: "text",
+    placeholder: "Name",
+    icon: CgProfile,
+  },
+  {
+    id: 2,
+    name: "email",
+    type: "email",
+    placeholder: "Email",
+    icon: FaEnvelope,
+  },
+  {
+    id: 3,
+    name: "password",
+    type: "password",
+    placeholder: "Password",
+    icon: MdLock,
+  },
 ];
 export const sidebarLinks = [
   {

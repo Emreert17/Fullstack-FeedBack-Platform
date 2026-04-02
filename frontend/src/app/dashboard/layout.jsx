@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }) {
           <TopBar />
           <div className="flex">
             <SideBar />
-            <main className="w-full py-5 px-12">{children}</main>
+            <main className="w-full py-4 px-12">{children}</main>
           </div>
         </div>
       </ProtectedRoute>
