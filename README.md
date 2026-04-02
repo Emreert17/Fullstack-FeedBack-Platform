@@ -9,7 +9,7 @@
 ## Tech Stack
 - Frontend: React / Next.js
 - Backend: Node.js / Express
-- Database: (ekle)
+- Database: MongoDB
 
 ## Status
 🚧 In progress
