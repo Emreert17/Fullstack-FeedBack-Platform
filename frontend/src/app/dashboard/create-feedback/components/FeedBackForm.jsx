@@ -34,9 +34,7 @@ export default function FeedBackForm() {
         console.log(data);
         console.log("Fetch is not working");
       }
-      setTitle("");
-      setDescription("");
-      setCategory("");
+      setForm({ title: "", category: "feature", description: "" });
     } catch (err) {
       console.log(err);
     }

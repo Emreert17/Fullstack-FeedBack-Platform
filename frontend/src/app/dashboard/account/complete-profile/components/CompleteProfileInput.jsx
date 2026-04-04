@@ -1,3 +1,4 @@
+import React from "react";
 export default function CompleteProfileInput({ info, handleChange, value }) {
   return (
     <>
@@ -15,18 +16,25 @@ export default function CompleteProfileInput({ info, handleChange, value }) {
         </label>
         {info.input ? (
           <>
-            <input
-              onChange={handleChange}
-              value={value}
-              className="w-full text-sm border-2 border-stone-300 p-[7px] rounded-md placeholder:text-gray-400"
-              type="text"
-              placeholder={info.placeholder}
-              name={info.name}
-            />
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none">
+                {info.icon && React.createElement(info.icon)}
+              </span>
+              <input
+                onChange={handleChange}
+                value={value}
+                className="w-full text-sm border-2 border-stone-300 p-2 pl-9 rounded-md placeholder:text-gray-400"
+                type="text"
+                placeholder={info.placeholder}
+                name={info.name}
+              />
+            </div>
           </>
         ) : (
           <>
             <textarea
+              onChange={handleChange}
+              value={value}
               className="w-full h-25 text-sm border-2 border-stone-300 p-[6px] rounded-md"
               placeholder={info.placeholder}
               name={info.name}

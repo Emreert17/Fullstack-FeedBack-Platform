@@ -70,6 +70,7 @@ export default function UpdatePassword() {
               switchToggle={() => handleToggle("current")}
               toggle={toggle.current}
               name="current"
+              placeholder="Enter your current password"
             ></PasswordInput>
             <div className="grid grid-cols-2 gap-6">
               <PasswordInput
@@ -79,6 +80,7 @@ export default function UpdatePassword() {
                 switchToggle={() => handleToggle("new")}
                 toggle={toggle.new}
                 name="new"
+                placeholder="New password"
               />
               <PasswordInput
                 label="Confirm new password"
@@ -87,9 +89,10 @@ export default function UpdatePassword() {
                 switchToggle={() => handleToggle("confirm")}
                 toggle={toggle.confirm}
                 name="confirm"
+                placeholder="Confirm password"
               />
             </div>
-            <p className="flex gap-2 items-center text-xs text-blue-600 bg-blue-100 p-3 rounded-md">
+            <p className="flex gap-2 items-center text-xs text-blue-600 bg-blue-100 mt-2 p-3 rounded-md">
               <GoInfo size={18} /> After saving, you will be logged out of all
               other devices and sessions for security.
             </p>

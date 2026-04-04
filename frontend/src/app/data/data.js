@@ -1,10 +1,20 @@
 import { LuLayoutDashboard, LuList, LuUser, LuPlus } from "react-icons/lu";
-import { IoAnalytics } from "react-icons/io5";
+import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { MdLock } from "react-icons/md";
+import { MdWork, MdApartment, MdLock } from "react-icons/md";
 import { RiUserSettingsFill } from "react-icons/ri";
-import { FaEnvelope } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaBuilding,
+  FaGlobe,
+  FaMapMarker,
+  FaComments,
+} from "react-icons/fa";
 import { PiUserCircleCheckBold } from "react-icons/pi";
+import { HiUserGroup } from "react-icons/hi";
+import { IoIosNotifications, IoIosStar } from "react-icons/io";
+import { FaFolderOpen } from "react-icons/fa6";
+import { SiGoogleanalytics } from "react-icons/si";
 
 export const loginInput = [
   {
@@ -172,10 +182,11 @@ export const quickLinks = [
 export const completeProfileİnfo = [
   {
     id: 1,
-    name: "jobtitle",
+    name: "jobTitle",
     label: "Job title",
     input: true,
     placeholder: "Job title",
+    icon: MdWork,
   },
   {
     id: 2,
@@ -183,20 +194,23 @@ export const completeProfileİnfo = [
     label: "Department",
     input: true,
     placeholder: "Department",
+    icon: FaBuilding,
   },
   {
     id: 3,
-    name: "companyname",
+    name: "companyName",
     label: "Company name",
     input: true,
     placeholder: "Company name",
+    icon: MdApartment,
   },
   {
     id: 4,
-    name: "companysize",
+    name: "companySize",
     label: "Company size",
     input: true,
     placeholder: "Company size",
+    icon: HiUserGroup,
   },
   {
     id: 5,
@@ -204,8 +218,16 @@ export const completeProfileİnfo = [
     label: "Country",
     input: true,
     placeholder: "Country",
+    icon: FaGlobe,
   },
-  { id: 6, name: "city", label: "City", input: true, placeholder: "City" },
+  {
+    id: 6,
+    name: "city",
+    label: "City",
+    input: true,
+    placeholder: "City",
+    icon: FaMapMarker,
+  },
   {
     id: 7,
     name: "bio",
@@ -213,4 +235,53 @@ export const completeProfileİnfo = [
     input: false,
     placeholder: "A short bio about yourself...",
   },
+];
+export const FeatureCards = [
+  {
+    id: 1,
+    title: "Feedback Collection",
+    description:
+      "Easily gather feedback from users in one centralized platform.",
+    icon: IoDocumentTextOutline,
+  },
+  {
+    id: 2,
+    title: "Smart Analytics",
+    description:
+      "Understand trends and insights with powerful feedback analytics.",
+    icon: SiGoogleanalytics,
+  },
+  {
+    id: 3,
+    title: "Organized Dashboard",
+    description:
+      "Keep all feedback structured and accessible in a clean dashboard.",
+    icon: FaFolderOpen,
+  },
+  {
+    id: 4,
+    title: "Prioritization System",
+    description: "Rank and prioritize feedback to focus on what matters most.",
+    icon: IoIosStar,
+  },
+  {
+    id: 5,
+    title: "User Engagement",
+    description:
+      "Interact with users and respond to their feedback in real-time.",
+    icon: FaComments,
+  },
+  {
+    id: 6,
+    title: "Notifications",
+    description:
+      "Stay updated with instant alerts on new feedback and updates.",
+    icon: IoIosNotifications,
+  },
+];
+export const StatsInfo = [
+  { id: 1, title: "2,400+", description: "Teams using feedly" },
+  { id: 2, title: "1.2M", description: "Feedbacks collected" },
+  { id: 3, title: "74%", description: "Average resolution rate" },
+  { id: 4, title: "4.9★", description: "Average customer rating" },
 ];

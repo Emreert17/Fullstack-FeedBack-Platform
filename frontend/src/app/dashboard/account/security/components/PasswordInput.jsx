@@ -7,6 +7,7 @@ export default function PasswordInput({
   switchToggle,
   toggle,
   name,
+  placeholder,
 }) {
   return (
     <>
@@ -18,13 +19,14 @@ export default function PasswordInput({
         <input
           onChange={handlePassword}
           value={value}
-          className="w-full border-2 border-stone-300 p-[4px] rounded-md"
+          className="w-full text-sm border-2 border-stone-300 pl-2 p-[5px] rounded-md"
           type={`${toggle ? "text" : "password"}`}
           name={name}
+          placeholder={placeholder}
         />
         <span
           onClick={switchToggle}
-          className="absolute top-[30px] right-[10px] cursor-pointer"
+          className="absolute top-[27px] right-[10px] cursor-pointer"
         >
           {toggle ? <FaEye size={20} /> : <FaEyeSlash size={20} />}
         </span>

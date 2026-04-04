@@ -26,6 +26,7 @@ server.use(express.urlencoded({ extended: true }));
 // Router mount
 server.use("/api/auth", authRouter);
 server.use("/api/feedback", feedBackRouter);
+server.use("/api/profile", profileRouter);
 server.use("/api/password", accountRouter);
 
 server.listen(PORT, (req, res) => {

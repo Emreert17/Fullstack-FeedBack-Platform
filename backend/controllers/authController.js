@@ -62,7 +62,9 @@ exports.loginControl = async (req, res) => {
 
 exports.routeProtection = async (req, res) => {
   if (!req.user) return res.status(403).json({ message: "Forbidden" });
+  console.log(req.user);
   const user = await User.findById(req.user.userID).select("-password");
+  console.log(user);
   if (!user) return res.status(401).json({ message: "Unauthorized" });
   res.json(user);
 };

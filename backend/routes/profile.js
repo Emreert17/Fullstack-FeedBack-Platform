@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const authenticationToken = require("../middleware/jwtMiddleware");
+const autMiddleware = require("../middleware/jwtMiddleware");
+const profileController = require("../controllers/profileController");
 
-router.get("/", authenticationToken, (req, res) => {
-  res.json(req.user);
-});
+router.get("/", autMiddleware, profileController.getProfile);
+
+router.post("/", autMiddleware, profileController.completeProfile);
 
 module.exports = router;
