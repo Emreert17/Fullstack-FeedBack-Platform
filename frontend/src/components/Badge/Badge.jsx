@@ -1,7 +1,7 @@
 export default function Badge({ children }) {
   return (
     <>
-      <span className="text-sm font-semibold tracking-wider text-blue-700">
+      <span className="text-xs font-semibold tracking-wider text-center text-blue-700">
         {children}
       </span>
     </>
