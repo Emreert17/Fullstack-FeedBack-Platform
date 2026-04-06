@@ -1,15 +1,9 @@
 import { LuLayoutDashboard, LuList, LuUser, LuPlus } from "react-icons/lu";
 import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
-import { MdWork, MdApartment, MdLock } from "react-icons/md";
+import { MdWork, MdApartment, MdLock, MdLocationOn } from "react-icons/md";
 import { RiUserSettingsFill } from "react-icons/ri";
-import {
-  FaEnvelope,
-  FaBuilding,
-  FaGlobe,
-  FaMapMarker,
-  FaComments,
-} from "react-icons/fa";
+import { FaEnvelope, FaBuilding, FaGlobe, FaComments } from "react-icons/fa";
 import { PiUserCircleCheckBold } from "react-icons/pi";
 import { HiUserGroup } from "react-icons/hi";
 import { IoIosNotifications, IoIosStar } from "react-icons/io";
@@ -37,7 +31,7 @@ export const registerInput = [
     id: 1,
     name: "username",
     type: "text",
-    placeholder: "Name",
+    placeholder: "Full Name",
     icon: CgProfile,
   },
   {
@@ -179,10 +173,10 @@ export const quickLinks = [
     color: "bg-amber-200",
   },
 ];
-export const completeProfileİnfo = [
+export const completeProfileInfo = [
   {
     id: 1,
-    name: "jobTitle",
+    name: "jobtitle",
     label: "Job title",
     input: true,
     placeholder: "Job title",
@@ -198,7 +192,7 @@ export const completeProfileİnfo = [
   },
   {
     id: 3,
-    name: "companyName",
+    name: "companyname",
     label: "Company name",
     input: true,
     placeholder: "Company name",
@@ -206,7 +200,7 @@ export const completeProfileİnfo = [
   },
   {
     id: 4,
-    name: "companySize",
+    name: "companysize",
     label: "Company size",
     input: true,
     placeholder: "Company size",
@@ -226,7 +220,7 @@ export const completeProfileİnfo = [
     label: "City",
     input: true,
     placeholder: "City",
-    icon: FaMapMarker,
+    icon: MdLocationOn,
   },
   {
     id: 7,
@@ -303,5 +297,78 @@ export const howItWorks = [
     title: "Prioritise & resolve",
     description:
       "Review, triage and close feedback with statuses. Users get notified when their request is resolved.",
+  },
+];
+export const profileStatus = [
+  {
+    id: 1,
+    name: "username",
+    label: "Full Name",
+    input: true,
+    placeholder: "Full Name",
+    icon: CgProfile,
+  },
+  {
+    id: 2,
+    name: "email",
+    label: "Email",
+    input: true,
+    placeholder: "Email",
+    icon: FaEnvelope,
+  },
+  {
+    id: 3,
+    name: "jobtitle",
+    label: "Role",
+    input: true,
+    placeholder: "Role",
+    icon: MdWork,
+  },
+  {
+    id: 4,
+    name: "department",
+    label: "Department",
+    input: true,
+    placeholder: "Department",
+    icon: FaBuilding,
+  },
+  {
+    id: 5,
+    name: "companyname",
+    label: "Company name",
+    input: true,
+    placeholder: "Company name",
+    icon: MdApartment,
+  },
+  {
+    id: 6,
+    name: "companysize",
+    label: "Company size",
+    input: true,
+    placeholder: "Company size",
+    icon: HiUserGroup,
+  },
+  {
+    id: 7,
+    name: "country",
+    label: "Country",
+    input: true,
+    placeholder: "Country",
+    icon: FaGlobe,
+  },
+  {
+    id: 8,
+    name: "city",
+    label: "City",
+    input: true,
+    placeholder: "City",
+    icon: MdLocationOn,
+  },
+  {
+    id: 9,
+    name: "bio",
+    label: "Bio",
+    input: false,
+    placeholder: "A short bio about yourself...",
   },
 ];

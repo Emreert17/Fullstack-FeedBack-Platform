@@ -15,10 +15,10 @@ exports.getProfile = async (req, res) => {
 exports.completeProfile = async (req, res) => {
   try {
     const allowedFields = [
-      "jobTitle",
+      "jobtitle",
       "department",
-      "companyName",
-      "companySize",
+      "companyname",
+      "companysize",
       "country",
       "city",
       "bio",

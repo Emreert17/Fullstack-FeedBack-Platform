@@ -23,7 +23,7 @@ export default function CompleteProfileInput({ info, handleChange, value }) {
               <input
                 onChange={handleChange}
                 value={value}
-                className="w-full text-sm border-2 border-stone-300 p-2 pl-9 rounded-md placeholder:text-gray-400"
+                className="w-full text-sm font-medium border-2 border-stone-300 p-2 pl-9 rounded-md placeholder:text-gray-400"
                 type="text"
                 placeholder={info.placeholder}
                 name={info.name}
@@ -35,7 +35,7 @@ export default function CompleteProfileInput({ info, handleChange, value }) {
             <textarea
               onChange={handleChange}
               value={value}
-              className="w-full h-25 text-sm border-2 border-stone-300 p-[6px] rounded-md"
+              className="w-full h-25 text-sm font-medium border-2 border-stone-300 p-[8px] rounded-md"
               placeholder={info.placeholder}
               name={info.name}
               id={info.name}

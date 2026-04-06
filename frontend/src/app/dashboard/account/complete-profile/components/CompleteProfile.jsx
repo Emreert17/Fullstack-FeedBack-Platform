@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { completeProfileİnfo } from "../../../../data/data";
+import { completeProfileInfo } from "../../../../data/data";
 import CompleteProfileInput from "./CompleteProfileInput";
 import WorkDetailsHeader from "./WorkDetailsHeader";
 import Button from "../../../../../components/ui/Button";
@@ -32,13 +32,13 @@ export default function CompleteProfileForm() {
         const data = await res.json();
         console.log(data);
         setForm({
-          jobtitle: data.user?.jobTitle,
-          department: data.user?.department,
-          companyname: data.user?.companyName,
-          companysize: data.user?.companySize,
-          country: data.user?.country,
-          city: data.user?.city,
-          bio: data.user?.bio,
+          jobtitle: data.jobtitle || "",
+          department: data.department || "",
+          companyname: data.companyname || "",
+          companysize: data.companysize || "",
+          country: data.country || "",
+          city: data.city || "",
+          bio: data.bio || "",
         });
       } catch (err) {
         console.log(err);
@@ -61,10 +61,10 @@ export default function CompleteProfileForm() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
-            jobtitle: form.jobTitle,
+            jobtitle: form.jobtitle,
             department: form.department,
-            compantName: form.companyname,
-            companySize: form.companysize,
+            companyname: form.companyname,
+            companysize: form.companysize,
             country: form.country,
             city: form.city,
             bio: form.bio,
@@ -77,13 +77,13 @@ export default function CompleteProfileForm() {
         throw new Error(data.error || "Something went wrong!");
       }
       setForm({
-        jobTitle: data.user?.jobTitle || "",
-        department: data.user?.department || "",
-        companyname: data.user?.companyName || "",
-        companysize: data.user?.companySize || "",
-        country: data.user?.country || "",
-        city: data.user?.city || "",
-        bio: data.user?.bio || "",
+        jobtitle: data.jobtitle || "",
+        department: data.department || "",
+        companyname: data.companyname || "",
+        companysize: data.companysize || "",
+        country: data.country || "",
+        city: data.city || "",
+        bio: data.bio || "",
       });
     } catch (err) {
       console.log(err);
@@ -93,6 +93,7 @@ export default function CompleteProfileForm() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -103,7 +104,7 @@ export default function CompleteProfileForm() {
           <WorkDetailsHeader />
           <form onSubmit={handleCompleteProfile}>
             <div className="grid grid-cols-2 gap-5">
-              {completeProfileİnfo.map((info) => (
+              {completeProfileInfo.map((info) => (
                 <CompleteProfileInput
                   key={info.id}
                   handleChange={handleChange}
