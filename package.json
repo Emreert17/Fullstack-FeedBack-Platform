@@ -8,6 +8,7 @@
     "dev-frontend": "npm run dev --prefix frontend"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "concurrently": "^9.2.1"
   }
 }

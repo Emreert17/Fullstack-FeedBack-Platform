@@ -10,6 +10,7 @@ const authRouter = require("./routes/auth");
 const feedBackRouter = require("./routes/feedback");
 const profileRouter = require("./routes/profile");
 const accountRouter = require("./routes/account");
+const voteRouter = require("./routes/vote");
 
 // MongoDB connection
 require("dotenv").config();
@@ -28,6 +29,7 @@ server.use("/api/auth", authRouter);
 server.use("/api/feedback", feedBackRouter);
 server.use("/api/profile", profileRouter);
 server.use("/api/password", accountRouter);
+server.use("/api/vote", voteRouter);
 
 server.listen(PORT, (req, res) => {
   console.log(`Server is running http://localhost:${PORT}`);

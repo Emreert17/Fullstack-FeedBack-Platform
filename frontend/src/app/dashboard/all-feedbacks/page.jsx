@@ -1,7 +1,11 @@
+import Container from "./components/Container";
+
 export default function AllFeedbacks() {
   return (
     <>
-      <div></div>
+      <div>
+        <Container />
+      </div>
     </>
   );
 }

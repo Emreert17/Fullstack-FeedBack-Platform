@@ -23,7 +23,9 @@ exports.addFeedback = async (req, res) => {
 
 exports.getFeedback = async (req, res) => {
   try {
-    const feedback = await Feedback.find().sort({ createdAt: -1 });
+    const feedback = await Feedback.find()
+      .sort({ createdAt: -1 })
+      .populate("userId", "username");
     res.json(feedback);
   } catch (err) {
     res.status(500).json({ message: "Error fetching feedbacks" });

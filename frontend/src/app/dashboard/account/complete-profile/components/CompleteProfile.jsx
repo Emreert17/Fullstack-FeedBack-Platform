@@ -30,7 +30,6 @@ export default function CompleteProfileForm() {
           },
         );
         const data = await res.json();
-        console.log(data);
         setForm({
           jobtitle: data.jobtitle || "",
           department: data.department || "",
@@ -114,8 +113,8 @@ export default function CompleteProfileForm() {
               ))}
             </div>
             <div className="mt-4">
-              <Button variant="secondary" width="w-30" type="submit">
-                Save Profile
+              <Button variant="secondary" width="w-40" type="submit">
+                {form.isCompleteProfile ? "Save Profile" : "Update Profile"}
               </Button>
             </div>
           </form>

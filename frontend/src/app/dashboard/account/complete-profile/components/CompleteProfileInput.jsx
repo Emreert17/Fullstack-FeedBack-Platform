@@ -9,7 +9,7 @@ export default function CompleteProfileInput({ info, handleChange, value }) {
       )}
       <div className={`${info.input ? "" : "col-span-2"}`}>
         <label
-          className="text-xs font-semibold text-gray-700 mb-1 block"
+          className="text-xs font-bold text-blue-400 mb-1 block"
           htmlFor={info.name}
         >
           {info.label}
@@ -35,7 +35,7 @@ export default function CompleteProfileInput({ info, handleChange, value }) {
             <textarea
               onChange={handleChange}
               value={value}
-              className="w-full h-25 text-sm font-medium border-2 border-stone-300 p-[8px] rounded-md"
+              className="w-full h-25 text-sm font-medium border-2 border-stone-300 p-[12px] tracking-wide rounded-md"
               placeholder={info.placeholder}
               name={info.name}
               id={info.name}

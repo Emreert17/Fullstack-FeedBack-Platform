@@ -6,7 +6,7 @@ const feedbackSchema = new mongoose.Schema(
     description: { type: String, required: true },
     category: {
       type: String,
-      enum: ["feature", "bug", "ui", "ux", "enchanment"],
+      enum: ["feature", "bug", "ui", "ux", "enhancement"],
       required: true,
     },
     status: {
@@ -20,8 +20,6 @@ const feedbackSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    upVotes: { type: Number, default: 0 },
-    downvotes: { type: Number, default: 0 },
   },
   { timestamps: true },
 );
