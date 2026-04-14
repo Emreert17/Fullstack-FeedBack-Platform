@@ -2,11 +2,11 @@
 import { useEffect, useState } from "react";
 import AllFeedbackCard from "./AllFeedbackCard";
 import AllFeedbackHeader from "./AllFeedbackHeader";
+import AllFeedbackDetail from "./AllFeedbackDetail";
 
 export default function Container() {
-  const [voteCount, setVoteCount] = useState("");
   const [allFeedback, setAllFeedback] = useState([]);
-  const [feedbackId, setFeedbackId] = useState("");
+  const [selected, setSelected] = useState(null);
 
   useEffect(() => {
     const fetchAllFeedbacks = async () => {
@@ -24,6 +24,7 @@ export default function Container() {
         }
         const data = await res.json();
         setAllFeedback(data);
+        console.log(data);
       } catch (err) {
         console.log(err);
       }
@@ -31,7 +32,7 @@ export default function Container() {
     fetchAllFeedbacks();
   }, []);
 
-  const handleVote = async (e) => {
+  const handleVote = async (e, feedbackId) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
@@ -45,32 +46,54 @@ export default function Container() {
           feedbackId: feedbackId,
         }),
       });
-      console.log(feedbackId);
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || "Something went wrong");
       }
-      setVoteCount(data);
+      console.log(data);
+      setAllFeedback((prev) =>
+        prev.map((fb) =>
+          fb._id === feedbackId
+            ? { ...fb, voteCount: data.voteCount, voted: data.voted }
+            : fb,
+        ),
+      );
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const handleDetailPage = (id) => {
+    const selectedFeedback = allFeedback.find((fb) => fb._id === id);
+    setSelected(selectedFeedback);
   };
 
   return (
     <>
       <div>
         <AllFeedbackHeader />
-        <div className="grid grid-cols-2 gap-6">
-          {allFeedback.length > 0 &&
-            allFeedback.map((feedback) => (
-              <AllFeedbackCard
-                handleVote={handleVote}
-                key={feedback._id}
-                feedback={feedback}
-                setFeedbackId={setFeedbackId}
-                voteCount={voteCount.voteCount || 0}
-              />
-            ))}
+        <div className="grid grid-cols-2 gap-8">
+          <div className="flex flex-col gap-5 h-[600px] overflow-y-auto p-4">
+            {allFeedback.length > 0 &&
+              allFeedback.map((feedback) => (
+                <div
+                  onClick={() => handleDetailPage(feedback._id)}
+                  key={feedback._id}
+                  className="cursor-pointer"
+                >
+                  <AllFeedbackCard
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleVote(e, feedback._id);
+                    }}
+                    feedback={feedback}
+                  />
+                </div>
+              ))}
+          </div>
+          <div>
+            <AllFeedbackDetail selected={selected} />
+          </div>
         </div>
       </div>
     </>

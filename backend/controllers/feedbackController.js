@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
 const Feedback = require("../models/feedbackModel");
+const Vote = require("../models/voteModel");
 
 exports.addFeedback = async (req, res) => {
   try {
@@ -26,7 +26,26 @@ exports.getFeedback = async (req, res) => {
     const feedback = await Feedback.find()
       .sort({ createdAt: -1 })
       .populate("userId", "username");
-    res.json(feedback);
+
+    const voteCounted = await Promise.all(
+      feedback.map(async (fb) => {
+        const count = await Vote.countDocuments({
+          feedbackId: fb._id,
+        });
+
+        const vote = Vote.findOne({
+          userId: req.user.userID,
+          feedbackId: fb._id,
+        });
+
+        return {
+          ...fb.toObject(),
+          voteCount: count,
+          voted: !!vote,
+        };
+      }),
+    );
+    res.json(voteCounted);
   } catch (err) {
     res.status(500).json({ message: "Error fetching feedbacks" });
   }
@@ -35,7 +54,20 @@ exports.getFeedback = async (req, res) => {
 exports.getMyFeedback = async (req, res) => {
   try {
     const feedback = await Feedback.find({ userId: req.user.userID });
-    res.json(feedback);
+
+    const voteCounted = await Promise.all(
+      feedback.map(async (fb) => {
+        const count = await Vote.countDocuments({
+          feedbackId: fb._id,
+        });
+
+        return {
+          ...fb.toObject(),
+          voteCount: count,
+        };
+      }),
+    );
+    res.json(voteCounted);
   } catch (err) {
     console.error("ACTUAL ERROR:", err.message); // <-- look at your Node terminal
     res.status(500).json({ message: err.message });
