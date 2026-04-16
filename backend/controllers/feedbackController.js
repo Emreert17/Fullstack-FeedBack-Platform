@@ -1,5 +1,6 @@
 const Feedback = require("../models/feedbackModel");
 const Vote = require("../models/voteModel");
+const Comment = require("../models/commentModel");
 
 exports.addFeedback = async (req, res) => {
   try {
@@ -27,25 +28,30 @@ exports.getFeedback = async (req, res) => {
       .sort({ createdAt: -1 })
       .populate("userId", "username");
 
-    const voteCounted = await Promise.all(
+    const voteandCommentCounted = await Promise.all(
       feedback.map(async (fb) => {
-        const count = await Vote.countDocuments({
+        const voteCount = await Vote.countDocuments({
           feedbackId: fb._id,
         });
 
-        const vote = Vote.findOne({
+        const vote = await Vote.findOne({
           userId: req.user.userID,
+          feedbackId: fb._id,
+        });
+
+        const commentCount = await Comment.countDocuments({
           feedbackId: fb._id,
         });
 
         return {
           ...fb.toObject(),
-          voteCount: count,
+          commentCount: commentCount,
+          voteCount: voteCount,
           voted: !!vote,
         };
       }),
     );
-    res.json(voteCounted);
+    res.json(voteandCommentCounted);
   } catch (err) {
     res.status(500).json({ message: "Error fetching feedbacks" });
   }

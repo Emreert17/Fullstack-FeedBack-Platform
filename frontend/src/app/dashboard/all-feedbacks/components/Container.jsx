@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import AllFeedbackCard from "./AllFeedbackCard";
 import AllFeedbackHeader from "./AllFeedbackHeader";
-import AllFeedbackDetail from "./AllFeedbackDetail";
+import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
 
 export default function Container() {
   const [allFeedback, setAllFeedback] = useState([]);
@@ -73,7 +73,7 @@ export default function Container() {
       <div>
         <AllFeedbackHeader />
         <div className="grid grid-cols-2 gap-8">
-          <div className="flex flex-col gap-5 h-[600px] overflow-y-auto p-4">
+          <div className="flex flex-col gap-5 border border-stone-200 rounded-lg h-[600px] overflow-y-auto p-6">
             {allFeedback.length > 0 &&
               allFeedback.map((feedback) => (
                 <div

@@ -53,7 +53,8 @@ export default function AllFeedbackCard({ feedback, onClick }) {
             <span>{formattedDate(feedback.createdAt)}</span>
             <div className="w-[3px] h-[3px] rounded-full bg-stone-300" />
             <span className="flex items-center gap-1">
-              <FaComment size={11} /> 3
+              <FaComment size={11} />
+              {feedback.commentCount}
             </span>
           </div>
         </div>

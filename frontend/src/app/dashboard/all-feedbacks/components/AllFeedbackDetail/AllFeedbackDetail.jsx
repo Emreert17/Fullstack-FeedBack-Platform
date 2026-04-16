@@ -1,8 +1,8 @@
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
-import { formattedDate } from "../../../utils/formattedDate";
-import { profileBadgeTransformation } from "../../../utils/profileBadge";
-import { colorChange } from "../../../utils/colorChange";
+import { formattedDate } from "../../../../utils/formattedDate";
+import { profileBadgeTransformation } from "../../../../utils/profileBadge";
+import { colorChange } from "../../../../utils/colorChange";
 
 export default function AllFeedbackDetail({ selected }) {
   if (!selected) {
@@ -46,21 +46,31 @@ export default function AllFeedbackDetail({ selected }) {
         <span className="text-xs bg-amber-100 text-amber-800 font-medium px-3 py-1 rounded-full">
           {selected.category}
         </span>
-        <div className="ml-auto flex items-center gap-1.5 text-sm font-medium text-stone-500 border border-stone-200 rounded-full px-3 py-1">
+        <div className="ml-auto flex items-center gap-1.5 text-sm font-medium text-stone-500 border-2 border-stone-200 rounded-full px-3 py-1">
           <IoIosArrowUp size={14} className="text-stone-400" />
           {selected.voteCount || 0}
         </div>
       </div>
 
       <div className="p-6">
-        <p className="text-[11px] uppercase tracking-widest font-medium text-stone-400 mb-4">
+        <p className="flex justify-between text-[11px] uppercase tracking-widest font-medium text-stone-400 mb-4">
           Comments
+          <span className="flex items-center gap-1 pr-2">
+            <FaComment size={11} />
+            {selected.commentCount}
+          </span>
         </p>
-
-        {/* swap the placeholder below with your real comments map */}
-        <div className="text-sm text-stone-400 text-center py-5 border border-dashed border-stone-200 rounded-lg">
-          No comments yet
-        </div>
+        {selected.commentCount > 0 ? (
+          <>
+            <div></div>
+          </>
+        ) : (
+          <>
+            <div className="text-sm text-stone-400 text-center py-5 border border-dashed border-stone-200 rounded-lg">
+              No comments yet
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
