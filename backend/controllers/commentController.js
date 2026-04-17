@@ -1,9 +1,26 @@
 const Comment = require("../models/commentModel");
 const Feedback = require("../models/feedbackModel");
 
+exports.getComment = async (req, res) => {
+  try {
+    const feedbackId = req.params.id;
+    const feedback = await Feedback.findById(feedbackId);
+    if (!feedback) {
+      return res.status(400).json({ error: "Feedback not found!" });
+    }
+    const comment = await Comment.find({ feedbackId })
+      .sort({ createdAt: -1 })
+      .populate("userId", "username");
+    res.status(200).json(comment);
+  } catch (err) {
+    res.status(500).json({ error: "Server Error!" });
+  }
+};
+
 exports.addComment = async (req, res) => {
   const currentUserId = req.user.userID;
-  const { feedbackId, text } = req.body;
+  const feedbackId = req.params.id; // Getting params :id
+  const { text } = req.body;
 
   const feedback = await Feedback.findById(feedbackId);
 

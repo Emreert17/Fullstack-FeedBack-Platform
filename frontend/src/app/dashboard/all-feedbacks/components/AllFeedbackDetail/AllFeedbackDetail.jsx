@@ -1,10 +1,76 @@
+"use client";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { formattedDate } from "../../../../utils/formattedDate";
 import { profileBadgeTransformation } from "../../../../utils/profileBadge";
 import { colorChange } from "../../../../utils/colorChange";
+import CommentInput from "./CommentInput";
+import { useEffect, useState } from "react";
+import CommentList from "./CommentList";
 
 export default function AllFeedbackDetail({ selected }) {
+  const [text, setText] = useState("");
+  const [comment, setComment] = useState([]);
+
+  const handleComment = async (e) => {
+    e.preventDefault();
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(
+        process.env.NEXT_PUBLIC_API_URL +
+          `/api/comments/${selected._id}/comment/add`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            text,
+          }),
+        },
+      );
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Something went wrong!");
+      }
+      setComment((prev) => [data, ...prev]);
+      setText("");
+      console.log(data);
+    } catch (err) {
+      console.log("This place working");
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    if (!selected?._id) return;
+    const getComments = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_API_URL +
+            `/api/comments/${selected._id}/comment`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data.error || "Something went wrong!");
+        }
+        setComment(data);
+        console.log(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getComments();
+  }, [selected?._id]);
+
   if (!selected) {
     return (
       <div className="h-[600px] flex flex-col items-center justify-center gap-3 border border-dashed border-stone-200 rounded-xl text-stone-400">
@@ -60,17 +126,24 @@ export default function AllFeedbackDetail({ selected }) {
             {selected.commentCount}
           </span>
         </p>
-        {selected.commentCount > 0 ? (
-          <>
-            <div></div>
-          </>
-        ) : (
-          <>
-            <div className="text-sm text-stone-400 text-center py-5 border border-dashed border-stone-200 rounded-lg">
-              No comments yet
-            </div>
-          </>
-        )}
+        <div className="flex flex-col gap-8 py-5">
+          <CommentInput
+            handleComment={handleComment}
+            setText={setText}
+            text={text}
+          />
+          {comment.length > 0 ? (
+            <>
+              <CommentList comment={comment} />
+            </>
+          ) : (
+            <>
+              <div className="text-sm text-stone-400 text-center py-5 border border-dashed border-stone-200 rounded-lg">
+                No comments yet
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

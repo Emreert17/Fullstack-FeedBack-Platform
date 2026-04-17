@@ -3,10 +3,17 @@ const router = express.Router();
 const authMiddleware = require("../middleware/jwtMiddleware");
 const commentController = require("../controllers/commentController");
 
-// Create comment
-router.post("/create", authMiddleware, commentController.addComment);
+// Get comment
+router.get("/:id/comment", authMiddleware, commentController.getComment);
+
+// Add comment
+router.post("/:id/comment/add", authMiddleware, commentController.addComment);
 
 // Delete Comment
-router.post("/delete", authMiddleware, commentController.deleteComment);
+router.post(
+  "/:id/comment/delete",
+  authMiddleware,
+  commentController.deleteComment,
+);
 
 module.exports = router;
