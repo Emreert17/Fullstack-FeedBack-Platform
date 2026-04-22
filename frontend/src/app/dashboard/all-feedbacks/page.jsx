@@ -1,10 +1,10 @@
-import Container from "./components/Container";
+import AllFeedbacksContainer from "./components/Container";
 
 export default function AllFeedbacks() {
   return (
     <>
       <div>
-        <Container />
+        <AllFeedbacksContainer />
       </div>
     </>
   );

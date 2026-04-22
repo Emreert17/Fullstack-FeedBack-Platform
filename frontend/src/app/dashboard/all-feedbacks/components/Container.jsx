@@ -4,7 +4,7 @@ import AllFeedbackCard from "./AllFeedbackCard";
 import AllFeedbackHeader from "./AllFeedbackHeader";
 import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
 
-export default function Container() {
+export default function AllFeedbacksContainer() {
   const [allFeedback, setAllFeedback] = useState([]);
   const [selected, setSelected] = useState(null);
 

@@ -4,7 +4,7 @@ import { profileBadgeTransformation } from "../../../../utils/profileBadge";
 export default function Comment({ comment }) {
   return (
     <div className="flex gap-3 p-4 rounded-xl bg-white border border-stone-100 hover:border-stone-200 transition">
-      <span className="w-9 h-9 rounded-full bg-purple-100 border border-purple-300 text-purple-800 text-xs font-medium flex items-center justify-center shrink-0">
+      <span className="w-8 h-8 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-medium flex items-center justify-center shrink-0">
         {profileBadgeTransformation(comment.userId.username)}
       </span>
 
