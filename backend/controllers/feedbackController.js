@@ -24,8 +24,13 @@ exports.addFeedback = async (req, res) => {
 
 exports.getFeedback = async (req, res) => {
   try {
+    const page = req.query.page || 1;
+    const limit = req.query.limit || 10;
+
     const feedback = await Feedback.find()
       .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit)
       .populate("userId", "username");
 
     const voteandCommentCounted = await Promise.all(

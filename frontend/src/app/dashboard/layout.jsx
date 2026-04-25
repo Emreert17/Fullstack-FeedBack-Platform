@@ -1,3 +1,4 @@
+"use client";
 import SideBar from "../../components/Navbar/AfterLogin/SideBar";
 import TopBar from "../../components/Navbar/AfterLogin/TopBar";
 import ProtectedRoute from "../../components/Protected/ProtectedRoute";
@@ -10,7 +11,7 @@ export default function DashboardLayout({ children }) {
           <TopBar />
           <div className="flex">
             <SideBar />
-            <main className="w-full py-2 px-12">{children}</main>
+            <main className="w-full py-2 px-10">{children}</main>
           </div>
         </div>
       </ProtectedRoute>

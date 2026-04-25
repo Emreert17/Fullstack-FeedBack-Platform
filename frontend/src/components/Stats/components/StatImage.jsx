@@ -1,6 +1,6 @@
 export default function StatImage() {
   return (
-    <div className="relative flex justify-center items-center py-10">
+    <div className="relative flex justify-center items-center py-5">
       <div className="absolute w-[700px] h-[600px] bg-blue-500/20 blur-3xl rounded-full"></div>
 
       <img

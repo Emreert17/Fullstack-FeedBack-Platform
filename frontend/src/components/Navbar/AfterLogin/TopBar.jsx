@@ -4,6 +4,7 @@ import Logo from "../../Logo/Logo";
 import { useAuth } from "../../../app/context/authContext";
 import { MdLogout } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { profileBadgeTransformation } from "../../../app/utils/profileBadge";
 
 export default function TopBar() {
   const router = useRouter();
@@ -22,8 +23,8 @@ export default function TopBar() {
         </Link>
       </div>
       <div className="flex items-center gap-4">
-        <span className="text-lg font-bold text-stone-50 bg-indigo-600 border-2 border-stone-300 rounded-full w-8 h-8 flex items-center justify-center">
-          {user?.username?.charAt(0).toUpperCase()}
+        <span className="w-[35px] h-[35px] shadow-lg rounded-full bg-blue-100 text-blue-800 border border-blue-300 text-[14px] font-semibold flex items-center justify-center flex-shrink-0">
+          {profileBadgeTransformation(user?.username && user?.username)}
         </span>
         <button
           onClick={handleLogout}

@@ -36,10 +36,10 @@ export default function AnalyticsContainer() {
     <>
       <div>
         <AnalyticsHeader />
-        <div className="flex flex-col gap-4">
-          <div className="grid grid-cols-4 gap-6 py-4">
+        <div className="flex flex-col gap-6">
+          <div className="grid grid-cols-4 gap-6 py-3">
             {analytics.kpiCards?.map((card) => (
-              <KPICards key={card.label} card={card} />
+              <KPICards key={card.id} card={card} />
             ))}
           </div>
           <div>
@@ -48,7 +48,7 @@ export default function AnalyticsContainer() {
             />
           </div>
           <div className="grid grid-cols-2">
-            <RecentCategories />
+            <RecentCategories data={analytics.category} />
           </div>
         </div>
       </div>

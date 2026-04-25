@@ -1,16 +1,7 @@
 import Categories from "./Categories";
 
-export default function RecentCategories() {
-  const data = [
-    { label: "Feature", value: 24 },
-    { label: "Bug", value: 18 },
-    { label: "UI", value: 12 },
-    { label: "Performance", value: 9 },
-    { label: "UX", value: 6 },
-  ];
-
-  const max = Math.max(...data.map((item) => item.value));
-
+export default function RecentCategories({ data }) {
+  const total = data?.reduce((acc, curr) => acc + curr.count, 0);
   return (
     <div className="border border-stone-200 rounded-xl p-6 bg-white shadow-sm">
       <h4 className="text-md font-semibold text-stone-800">Top categories</h4>
@@ -19,13 +10,8 @@ export default function RecentCategories() {
       </p>
 
       <div className="flex flex-col gap-4">
-        {data.map((item) => (
-          <Categories
-            key={item.label}
-            label={item.label}
-            value={item.value}
-            max={max}
-          />
+        {data?.map((item) => (
+          <Categories key={item._id} item={item} total={total} />
         ))}
       </div>
     </div>

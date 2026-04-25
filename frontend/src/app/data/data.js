@@ -3,7 +3,18 @@ import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdWork, MdApartment, MdLock, MdLocationOn } from "react-icons/md";
 import { RiUserSettingsFill } from "react-icons/ri";
-import { FaEnvelope, FaBuilding, FaGlobe, FaComments } from "react-icons/fa";
+import {
+  FaEnvelope,
+  FaBuilding,
+  FaGlobe,
+  FaComments,
+  FaBug,
+  FaPalette,
+  FaUser,
+  FaRocket,
+  FaPuzzlePiece,
+} from "react-icons/fa";
+
 import { PiUserCircleCheckBold } from "react-icons/pi";
 import { HiUserGroup } from "react-icons/hi";
 import { IoIosNotifications, IoIosStar } from "react-icons/io";
@@ -393,5 +404,37 @@ export const profileStatus = [
     label: "Bio",
     input: false,
     placeholder: "A short bio about yourself...",
+  },
+];
+export const categoriesIcon = [
+  {
+    id: 1,
+    key: "bug",
+    icon: FaBug,
+    color: "bg-red-100 text-red-500",
+  },
+  {
+    id: 2,
+    key: "ui",
+    icon: FaPalette,
+    color: "bg-blue-100 text-blue-500",
+  },
+  {
+    id: 3,
+    key: "ux",
+    icon: FaUser,
+    color: "bg-purple-100 text-purple-500",
+  },
+  {
+    id: 4,
+    key: "enhancement",
+    icon: FaRocket,
+    color: "bg-green-100 text-green-500",
+  },
+  {
+    id: 5,
+    key: "feature",
+    icon: FaPuzzlePiece,
+    color: "bg-yellow-100 text-yellow-500",
   },
 ];

@@ -1,6 +1,7 @@
 export const profileBadgeTransformation = (word) => {
+  if (!word) return "";
+  const parts = word.split(" ");
   return (
-    word.split(" ")[0].slice(0, 1).toUpperCase() +
-    word.split(" ")[1].slice(0, 1).toUpperCase()
+    (parts[0]?.[0] || "").toUpperCase() + (parts[1]?.[0] || "").toUpperCase()
   );
 };

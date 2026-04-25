@@ -67,6 +67,14 @@ exports.getAnalyticsData = async (req, res) => {
             $sort: { _id: 1 },
           },
         ],
+        category: [
+          {
+            $group: {
+              _id: "$category",
+              count: { $sum: 1 },
+            },
+          },
+        ],
       },
     },
   ]);
@@ -87,21 +95,25 @@ exports.getAnalyticsData = async (req, res) => {
   const response = {
     kpiCards: [
       {
+        id: 1,
         label: "Total Feedback",
         value: total,
         sublabel: "All-time feedback count",
       },
       {
+        id: 2,
         label: "Last 7 Days Feedback",
         value: last7,
         sublabel: "Feedback received in the past week",
       },
       {
+        id: 3,
         label: "Growth Rate",
         value: growthRate,
         sublabel: "Change compared to previous 7 days",
       },
       {
+        id: 4,
         label: "Avg Feedback Per Day",
         value: avgPerDay,
         sublabel: "Average daily feedback (last 7 days)",
@@ -117,6 +129,11 @@ exports.getAnalyticsData = async (req, res) => {
         count: item.count,
       };
     }),
+
+    category: data[0].category.map((category) => ({
+      _id: category._id,
+      count: category.count,
+    })),
   };
 
   res.status(200).json(response);
