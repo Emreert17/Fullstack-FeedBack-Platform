@@ -115,8 +115,31 @@ export default function AllFeedbacksContainer() {
             <button
               disabled={!hasMore || loading}
               onClick={() => setPage((prev) => prev + 1)}
+              className={`
+                   relative flex items-center justify-center
+                   px-5 py-2.5 rounded-lg text-sm font-medium
+                   transition-all duration-200
+                   border border-transparent
+
+              ${
+                loading || !hasMore
+                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                  : "bg-black text-white hover:bg-gray-800 active:scale-[0.98]"
+              }
+
+                   shadow-sm hover:shadow-md
+              `}
             >
-              {loading ? "Loading..." : hasMore ? "Load More" : "No More Data"}
+              {loading ? (
+                <span className="flex items-center gap-2">
+                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  Loading...
+                </span>
+              ) : hasMore ? (
+                "Load More"
+              ) : (
+                "No More Data"
+              )}
             </button>
           </div>
           <div className="col-span-3">

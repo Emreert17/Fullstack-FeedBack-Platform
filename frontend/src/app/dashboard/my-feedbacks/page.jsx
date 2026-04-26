@@ -1,12 +1,10 @@
-import FeedbackHeader from "./components/FeedbackHeader";
-import Feedbacks from "./components/Feedbacks";
+import MyFeedbacksContainer from "./components/Container";
 
 export default function MyFeedbacks() {
   return (
     <>
       <div>
-        <FeedbackHeader />
-        <Feedbacks />
+        <MyFeedbacksContainer />
       </div>
     </>
   );

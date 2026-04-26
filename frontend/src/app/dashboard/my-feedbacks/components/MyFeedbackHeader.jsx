@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import RouteHeader from "../../../../components/RouteHeader/RouteHeader";
-export default function FeedbackHeader() {
+export default function MyFeedbackHeader() {
   return (
     <>
       <div className="flex items-center justify-between">

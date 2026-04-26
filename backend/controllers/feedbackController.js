@@ -66,19 +66,24 @@ exports.getMyFeedback = async (req, res) => {
   try {
     const feedback = await Feedback.find({ userId: req.user.userID });
 
-    const voteCounted = await Promise.all(
+    const voteandCommentCounted = await Promise.all(
       feedback.map(async (fb) => {
         const count = await Vote.countDocuments({
           feedbackId: fb._id,
         });
 
+        const commentCount = await Comment.countDocuments({
+          feedbackId: fb._id,
+        });
+
         return {
           ...fb.toObject(),
+          commentCount: commentCount,
           voteCount: count,
         };
       }),
     );
-    res.json(voteCounted);
+    res.json(voteandCommentCounted);
   } catch (err) {
     console.error("ACTUAL ERROR:", err.message); // <-- look at your Node terminal
     res.status(500).json({ message: err.message });

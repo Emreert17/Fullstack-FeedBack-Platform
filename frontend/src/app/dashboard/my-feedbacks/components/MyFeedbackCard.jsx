@@ -5,9 +5,15 @@ import { poppins } from "../../../layout";
 import { formattedDate } from "../../../utils/formattedDate";
 import { transformUppercase } from "../../../utils/upperCase";
 import { colorChange } from "../../../utils/colorChange";
-import { profileBadgeTransformation } from "../../../utils/profileBadge";
 
-export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
+export default function MyFeedbackCard({
+  feedback,
+  onClick,
+  isSelected,
+  currentUserId,
+}) {
+  const isOwn = feedback.userId._id === currentUserId;
+
   return (
     <div
       className={`group relative flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-all duration-200 cursor-pointer
@@ -17,39 +23,40 @@ export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
             : "bg-white border-stone-200 hover:border-stone-200 hover:shadow-sm"
         }`}
     >
-      {/* Left accent bar when selected */}
+      {/* Selected bar */}
       {isSelected && (
-        <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-stone-400 rounded-l-xl" />
+        <span className="absolute left-0 top-3 bottom-3 w-[3px] bg-stone-400 rounded-full" />
       )}
 
-      {/* Vote button */}
+      {/* Vote */}
       <button
-        onClick={onClick}
-        className={`flex flex-col items-center justify-center gap-0.5 min-w-[32px] rounded-lg px-1.5 py-1.5 transition-all duration-150 cursor-pointer border
+        disabled={isOwn}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (!isOwn) onClick(e);
+        }}
+        className={`flex flex-col items-center justify-center gap-0.5 min-w-[32px] rounded-lg px-1.5 py-1.5 border transition-all duration-150
           ${
-            feedback.voted
-              ? "bg-indigo-50 border-indigo-200 text-indigo-600"
-              : "bg-stone-50 border-stone-200 text-stone-400 group-hover:border-stone-300 group-hover:text-stone-600"
+            isOwn
+              ? "bg-stone-100 border-stone-300 text-stone-600"
+              : feedback.voted
+                ? "bg-indigo-50 border-indigo-200 text-indigo-600"
+                : "bg-stone-50 border-stone-200 text-stone-400 group-hover:border-stone-300 group-hover:text-stone-600"
           }`}
       >
         <IoIosArrowUp size={13} />
-        <span className="text-[10px] font-semibold leading-none tabular-nums">
+        <span className="text-[10px] font-semibold text-stone-800 tabular-nums">
           {feedback.voteCount || 0}
         </span>
       </button>
 
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-        {/* Author row */}
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-1.5 min-w-0">
-            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center flex-shrink-0 ring-1 ring-violet-200">
-              {profileBadgeTransformation(feedback.userId.username)}
-            </span>
-            <span className="text-[11px] text-stone-400 truncate font-medium">
-              {feedback.userId.username}
-            </span>
-          </div>
+        {/* Top row */}
+        <div className="flex items-center justify-between">
+          <span className="text-[11px] text-stone-400 font-medium">
+            {isOwn ? "You" : "User"}
+          </span>
           <span className="text-[10px] font-medium text-stone-500 flex-shrink-0 tabular-nums">
             {formattedDate(feedback.createdAt)}
           </span>
@@ -62,11 +69,13 @@ export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
           {feedback.title}
         </h4>
 
-        {/* Tags + comment count */}
-        <div className="flex items-center justify-between gap-2">
+        {/* Bottom */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span
-              className={`${colorChange(feedback.status)} text-[10px] font-semibold px-2 py-0.5 rounded-full`}
+              className={`${colorChange(
+                feedback.status,
+              )} text-[10px] font-semibold px-2 py-0.5 rounded-full`}
             >
               {feedback.status}
             </span>
@@ -74,6 +83,7 @@ export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
               {transformUppercase(feedback.category)}
             </span>
           </div>
+
           <div className="flex items-center gap-1 text-[10px] text-stone-300">
             <FaComment size={10} />
             <span>{feedback.commentCount}</span>
