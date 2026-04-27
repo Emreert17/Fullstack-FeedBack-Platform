@@ -38,7 +38,7 @@ export const routeMeta = {
 
   "/dashboard/create-feedback": {
     title: "Create Feedback",
-    description: "Submit new feedback بسهولة",
+    description: "Submit new feedback",
   },
 
   "/dashboard/profile": {

@@ -2,6 +2,7 @@
 import PersonalInformation from "./PersonalInformation";
 import ProfileStatus from "./ProfileStatus";
 import { useState, useEffect } from "react";
+
 export default function ProfileContainer() {
   const [form, setForm] = useState({
     username: "",
@@ -29,7 +30,6 @@ export default function ProfileContainer() {
           },
         );
         const data = await res.json();
-        console.log(data);
         setForm({
           username: data.username || "",
           email: data.email || "",
@@ -50,16 +50,14 @@ export default function ProfileContainer() {
   }, []);
 
   return (
-    <>
-      <div className="flex gap-8">
-        <aside className="w-80 shrink-0">
-          <ProfileStatus />
-        </aside>
+    <div className="flex flex-col lg:flex-row gap-6">
+      <aside className="w-full lg:w-80 flex-shrink-0">
+        <ProfileStatus />
+      </aside>
 
-        <main className="flex-1">
-          <PersonalInformation form={form} />
-        </main>
-      </div>
-    </>
+      <main className="flex-1 min-w-0">
+        <PersonalInformation form={form} />
+      </main>
+    </div>
   );
 }

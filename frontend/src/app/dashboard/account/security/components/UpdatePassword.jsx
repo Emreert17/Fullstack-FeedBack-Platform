@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
-import { GoInfo } from "react-icons/go";
+import { FiInfo, FiSave, FiCheckCircle, FiAlertCircle } from "react-icons/fi";
 import PasswordInput from "./PasswordInput";
 import SecurityHeader from "./SecurityHeader";
 import { useRouter } from "next/navigation";
-import Button from "../../../../../components/ui/Button";
 import usePasswordForm from "../../../../hooks/usePasswordForm";
 import { passwordInfo } from "../../../../data/data";
 
@@ -13,16 +12,22 @@ export default function UpdatePassword() {
   const { password, setPassword } = form;
 
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setMessage("");
 
     try {
       const token = localStorage.getItem("token");
 
       if (password.new !== password.confirm) {
-        return setMessage("Passwords not match!");
+        setMessageType("error");
+        setLoading(false);
+        return setMessage("Passwords do not match!");
       }
 
       const res = await fetch(
@@ -47,7 +52,8 @@ export default function UpdatePassword() {
         throw new Error(data.error || "Something went wrong");
       }
 
-      setMessage(data.success);
+      setMessageType("success");
+      setMessage(data.success || "Password updated successfully!");
 
       setPassword({
         current: "",
@@ -59,7 +65,10 @@ export default function UpdatePassword() {
         logoutUser();
       }, 1500);
     } catch (err) {
+      setMessageType("error");
       setMessage(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -69,12 +78,15 @@ export default function UpdatePassword() {
   };
 
   return (
-    <div className="max-w-xl">
-      <div className="flex flex-col gap-6 border-2 border-stone-200 p-6 rounded-md">
+    <div className="max-w-2xl">
+      <div className="bg-white rounded-2xl border border-stone-200/80 shadow-sm p-8">
         <SecurityHeader />
 
-        <form onSubmit={handleUpdatePassword} className="flex flex-col gap-3">
-          <div className="grid grid-cols-2 gap-6">
+        {/* Divider */}
+        <div className="h-px bg-stone-200/80 my-6" />
+
+        <form onSubmit={handleUpdatePassword} className="flex flex-col gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {passwordInfo.map((input) => (
               <PasswordInput
                 key={input.name}
@@ -84,19 +96,74 @@ export default function UpdatePassword() {
             ))}
           </div>
 
-          <p className="flex gap-2 items-center text-xs text-blue-600 bg-blue-100 mt-2 p-3 rounded-md">
-            <GoInfo size={18} />
-            After saving, you will be logged out of all other devices and
-            sessions for security.
-          </p>
+          {/* Info notice */}
+          <div className="flex items-start gap-3 bg-brand-50 border border-brand-200 text-brand-700 rounded-xl px-4 py-3 text-sm">
+            <FiInfo className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <span>
+              After saving, you will be logged out of all other devices and
+              sessions for security.
+            </span>
+          </div>
 
-          <p className="text-sm font-medium text-rose-500">
-            {message && message}
-          </p>
+          {/* Message */}
+          {message && (
+            <div
+              className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium animate-fade-in-up ${
+                messageType === "success"
+                  ? "bg-emerald-50 border border-emerald-200 text-emerald-700"
+                  : "bg-red-50 border border-red-200 text-red-600"
+              }`}
+            >
+              {messageType === "success" ? (
+                <FiCheckCircle className="w-4 h-4 flex-shrink-0" />
+              ) : (
+                <FiAlertCircle className="w-4 h-4 flex-shrink-0" />
+              )}
+              {message}
+            </div>
+          )}
 
-          <Button width="w-25" variant="secondary" type="submit">
-            Update
-          </Button>
+          {/* Actions */}
+          <div className="flex items-center justify-end pt-2">
+            <button
+              type="submit"
+              disabled={loading}
+              className="inline-flex items-center gap-2 bg-brand-600 text-white px-6 py-3 rounded-xl font-semibold text-sm
+                         hover:bg-brand-700 hover:shadow-md hover:shadow-brand-500/20
+                         active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed
+                         transition-all duration-200 cursor-pointer"
+            >
+              {loading ? (
+                <>
+                  <svg
+                    className="w-4 h-4 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                  Updating...
+                </>
+              ) : (
+                <>
+                  <FiSave className="w-4 h-4" />
+                  Update Password
+                </>
+              )}
+            </button>
+          </div>
         </form>
       </div>
     </div>

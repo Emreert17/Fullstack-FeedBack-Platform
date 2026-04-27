@@ -7,16 +7,14 @@ import usePageMeta from "../hooks/usePageMeta";
 export default function DashboardLayout({ children }) {
   usePageMeta();
   return (
-    <>
-      <ProtectedRoute>
-        <div className="flex flex-col">
-          <TopBar />
-          <div className="flex">
-            <SideBar />
-            <main className="w-full py-2 px-10">{children}</main>
-          </div>
+    <ProtectedRoute>
+      <div className="min-h-screen bg-stone-50/50">
+        <TopBar />
+        <div className="flex">
+          <SideBar />
+          <main className="flex-1 p-8 overflow-auto">{children}</main>
         </div>
-      </ProtectedRoute>
-    </>
+      </div>
+    </ProtectedRoute>
   );
 }
