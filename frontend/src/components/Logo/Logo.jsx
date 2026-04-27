@@ -1,9 +1,7 @@
 export default function Logo() {
   return (
-    <>
-      <h2 className="text-indigo-600 font-semibold tracking-wider text-2xl">
-        feedly
-      </h2>
-    </>
+    <h2 className="text-brand-600 font-bold tracking-wider text-2xl">
+      feedly<span className="text-brand-400">.</span>
+    </h2>
   );
 }

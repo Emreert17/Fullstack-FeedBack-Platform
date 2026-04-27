@@ -1,17 +1,18 @@
 export default function Phase({ work }) {
   return (
-    <div className="flex items-center gap-4">
-      <div className="flex flex-col items-center gap-1 text-center">
-        <span className="w-8 h-8 flex items-center justify-center bg-blue-600 text-white text-sm font-semibold rounded-full">
+    <div className="flex flex-col items-center gap-4 text-center relative">
+      {/* Step number */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-brand-400/20 rounded-full blur-md scale-150" />
+        <span className="relative w-10 h-10 flex items-center justify-center bg-brand-600 text-white text-sm font-bold rounded-full shadow-md shadow-brand-500/30">
           {work.id}
         </span>
-        <h4 className="text-stone-800 text-lg font-semibold">{work.title}</h4>
-        <p className="text-stone-600 font-medium text-xs">{work.description}</p>
       </div>
 
-      {work.id >= 1 && work.id < 3 && (
-        <div className="w-[3px] h-[100px] bg-stone-300 rounded-md flex-shrink-0"></div>
-      )}
+      <h4 className="text-stone-900 text-lg font-semibold">{work.title}</h4>
+      <p className="text-stone-500 text-sm leading-relaxed max-w-[220px]">
+        {work.description}
+      </p>
     </div>
   );
 }

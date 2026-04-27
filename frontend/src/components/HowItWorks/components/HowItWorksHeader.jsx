@@ -1,14 +1,12 @@
 export default function HowItWorksHeader() {
   return (
-    <>
-      <div className="flex flex-col gap-1">
-        <h3 className="text-2xl font-bold text-stone-800 tracking-wider text-center">
-          Up and running in minutes
-        </h3>
-        <p className="text-xs font-semibold text-stone-600 px-12 text-center">
-          Three simple steps from signup to your first resolved feedback.
-        </p>
-      </div>
-    </>
+    <div className="flex flex-col items-center gap-3 pb-4">
+      <h3 className="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight text-center">
+        Up and running in minutes
+      </h3>
+      <p className="text-stone-500 text-sm md:text-base text-center max-w-lg">
+        Three simple steps from signup to your first resolved feedback.
+      </p>
+    </div>
   );
 }

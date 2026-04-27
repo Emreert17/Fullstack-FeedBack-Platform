@@ -4,14 +4,12 @@ import Phases from "./components/Phases";
 
 export default function HowItWorks() {
   return (
-    <>
-      <section id="howitworks" className="flex justify-center my-8 mb-14">
-        <div className="flex flex-col gap-4">
-          <Badge>HOW IT WORKS</Badge>
-          <HowItWorksHeader />
-          <Phases />
-        </div>
-      </section>
-    </>
+    <section id="howitworks" className="py-20 px-4">
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-6">
+        <Badge>HOW IT WORKS</Badge>
+        <HowItWorksHeader />
+        <Phases />
+      </div>
+    </section>
   );
 }

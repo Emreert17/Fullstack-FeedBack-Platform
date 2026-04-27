@@ -6,19 +6,17 @@ import StatsHeader from "./components/StatsHeader";
 
 export default function Stats() {
   return (
-    <>
-      <section id="stats" className="mt-2 mb-14">
-        <div className="flex flex-col gap-4">
-          <Badge>ANALYTICS</Badge>
-          <StatsHeader />
-          <StatImage />
-          <div className="grid grid-cols-4">
-            {StatsInfo.map((stat) => (
-              <Stat key={stat.id} stat={stat} />
-            ))}
-          </div>
+    <section id="stats" className="py-20 px-4">
+      <div className="max-w-6xl mx-auto flex flex-col items-center gap-6">
+        <Badge>ANALYTICS</Badge>
+        <StatsHeader />
+        <StatImage />
+        <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 bg-white/60 backdrop-blur-sm rounded-2xl border border-stone-200/60 shadow-sm">
+          {StatsInfo.map((stat) => (
+            <Stat key={stat.id} stat={stat} />
+          ))}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }
