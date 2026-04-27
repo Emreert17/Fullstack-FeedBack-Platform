@@ -1,11 +1,38 @@
 "use client";
+import { useEffect, useState } from "react";
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { formattedDate } from "../../../../utils/formattedDate";
 import { profileBadgeTransformation } from "../../../../utils/profileBadge";
 import { colorChange } from "../../../../utils/colorChange";
+import CommentList from "../../../all-feedbacks/components/AllFeedbackDetail/CommentList";
 
 export default function MyFeedbackDetail({ selected }) {
+  const [comment, setComment] = useState([]);
+
+  useEffect(() => {
+    if (!selected?._id) return;
+    const getComments = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(
+          process.env.NEXT_PUBLIC_API_URL +
+            `/api/comments/${selected._id}/comment`,
+          {
+            method: "GET",
+            headers: { Authorization: `Bearer ${token}` },
+          },
+        );
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || "Something went wrong!");
+        setComment(data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getComments();
+  }, [selected?._id]);
+
   if (!selected) {
     return (
       <div className="h-[600px] flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-stone-200 bg-stone-50/50">
@@ -77,24 +104,18 @@ export default function MyFeedbackDetail({ selected }) {
             </span>
           </div>
 
-          {/* <div className="flex flex-col gap-6">
-                <CommentInput
-                  handleComment={handleComment}
-                  setText={setText}
-                  text={text}
-                />
-      
-                {comment.length > 0 ? (
-                  <CommentList comment={comment} />
-                ) : (
-                  <div className="flex flex-col items-center gap-2 py-8 rounded-xl border border-dashed border-stone-200 bg-stone-50/60">
-                    <FaComment size={14} className="text-stone-200" />
-                    <p className="text-[12px] text-stone-400">
-                      No comments yet — be the first
-                    </p>
-                  </div>
-                )}
-              </div> */}
+          <div className="flex flex-col gap-6">
+            {comment.length > 0 ? (
+              <CommentList comment={comment} />
+            ) : (
+              <div className="flex flex-col items-center gap-2 py-8 rounded-xl border border-dashed border-stone-200 bg-stone-50/60">
+                <FaComment size={14} className="text-stone-200" />
+                <p className="text-[12px] text-stone-400">
+                  No comments yet — be the first
+                </p>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

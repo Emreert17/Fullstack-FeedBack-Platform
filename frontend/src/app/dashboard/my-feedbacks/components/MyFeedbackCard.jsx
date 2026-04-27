@@ -5,14 +5,15 @@ import { poppins } from "../../../layout";
 import { formattedDate } from "../../../utils/formattedDate";
 import { transformUppercase } from "../../../utils/upperCase";
 import { colorChange } from "../../../utils/colorChange";
+import { profileBadgeTransformation } from "../../../utils/profileBadge";
 
 export default function MyFeedbackCard({
   feedback,
-  onClick,
+  onClick = () => {},
   isSelected,
   currentUserId,
 }) {
-  const isOwn = feedback.userId._id === currentUserId;
+  const isOwn = feedback.userId?._id === currentUserId;
 
   return (
     <div
@@ -33,7 +34,7 @@ export default function MyFeedbackCard({
         disabled={isOwn}
         onClick={(e) => {
           e.stopPropagation();
-          if (!isOwn) onClick(e);
+          if (!isOwn && typeof onClick === "function") onClick(e);
         }}
         className={`flex flex-col items-center justify-center gap-0.5 min-w-[32px] rounded-lg px-1.5 py-1.5 border transition-all duration-150
           ${
@@ -54,9 +55,20 @@ export default function MyFeedbackCard({
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
         {/* Top row */}
         <div className="flex items-center justify-between">
-          <span className="text-[11px] text-stone-400 font-medium">
-            {isOwn ? "You" : "User"}
-          </span>
+          <div className="flex items-center gap-1.5">
+            {/* Badge */}
+            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center flex-shrink-0 ring-1 ring-violet-200">
+              {profileBadgeTransformation(feedback.userId?.username)}
+            </span>
+
+            {/* You indicator */}
+            {isOwn && (
+              <span className="text-[10px] text-stone-400 font-medium">
+                You
+              </span>
+            )}
+          </div>
+
           <span className="text-[10px] font-medium text-stone-500 flex-shrink-0 tabular-nums">
             {formattedDate(feedback.createdAt)}
           </span>

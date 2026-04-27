@@ -14,13 +14,53 @@ import {
   FaRocket,
   FaPuzzlePiece,
 } from "react-icons/fa";
-
 import { PiUserCircleCheckBold } from "react-icons/pi";
 import { HiUserGroup } from "react-icons/hi";
 import { IoIosNotifications, IoIosStar } from "react-icons/io";
 import { FaFolderOpen } from "react-icons/fa6";
 import { SiGoogleanalytics } from "react-icons/si";
 
+export const routeMeta = {
+  "/dashboard/analytics": {
+    title: "Analytics",
+    description: "Track feedback performance with charts and insights",
+  },
+
+  "/dashboard/all-feedbacks": {
+    title: "All Feedbacks",
+    description: "Browse and explore all user feedback",
+  },
+
+  "/dashboard/my-feedbacks": {
+    title: "My Feedbacks",
+    description: "Manage feedback you have created",
+  },
+
+  "/dashboard/create-feedback": {
+    title: "Create Feedback",
+    description: "Submit new feedback بسهولة",
+  },
+
+  "/dashboard/profile": {
+    title: "Profile",
+    description: "View and edit your profile information",
+  },
+
+  "/dashboard/account": {
+    title: "Account",
+    description: "Manage your account details and preferences",
+  },
+
+  "/dashboard/account/security": {
+    title: "Security",
+    description: "Update your password and secure your account",
+  },
+
+  "/dashboard/account/complete-profile": {
+    title: "Complete Profile",
+    description: "Complete your profile",
+  },
+};
 export const loginInput = [
   {
     id: 2,
