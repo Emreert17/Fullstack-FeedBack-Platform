@@ -19,8 +19,18 @@ import { HiUserGroup } from "react-icons/hi";
 import { IoIosNotifications, IoIosStar } from "react-icons/io";
 import { FaFolderOpen } from "react-icons/fa6";
 import { SiGoogleanalytics } from "react-icons/si";
+import { FiGithub, FiTwitter, FiLinkedin, FiMail } from "react-icons/fi";
 
+// Meta Data
 export const routeMeta = {
+  "/login": {
+    title: "Login",
+  },
+
+  "/register": {
+    title: "Register",
+  },
+
   "/dashboard/analytics": {
     title: "Analytics",
     description: "Track feedback performance with charts and insights",
@@ -61,6 +71,7 @@ export const routeMeta = {
     description: "Complete your profile",
   },
 };
+// Login Data
 export const loginInput = [
   {
     id: 2,
@@ -77,6 +88,7 @@ export const loginInput = [
     icon: MdLock,
   },
 ];
+//Register Data
 export const registerInput = [
   {
     id: 1,
@@ -100,6 +112,7 @@ export const registerInput = [
     icon: MdLock,
   },
 ];
+// SideBar Links Data
 export const sidebarLinks = [
   {
     id: 1,
@@ -163,6 +176,7 @@ export const sidebarLinks = [
     ],
   },
 ];
+// Feedback Data
 export const feedbackStatus = [
   { status: "open", color: "bg-red-200 text-red-800" },
   { status: "planned", color: "bg-yellow-200 text-yellow-800" },
@@ -175,6 +189,7 @@ export const statusSpan = [
   { status: "in-progress", color: "bg-blue-300" },
   { status: "done", color: "bg-green-300" },
 ];
+//Create Feedback Data
 export const createFeedback = [
   {
     id: 1,
@@ -204,6 +219,7 @@ export const createFeedback = [
     placeholder: "Describe your feedback...",
   },
 ];
+// Account Links
 export const quickLinks = [
   {
     id: 1,
@@ -224,6 +240,7 @@ export const quickLinks = [
     color: "bg-amber-200",
   },
 ];
+// Security Data
 export const passwordInfo = [
   {
     id: 1,
@@ -247,6 +264,7 @@ export const passwordInfo = [
     colSpan: false,
   },
 ];
+// Complete Profile Data
 export const completeProfileInfo = [
   {
     id: 1,
@@ -304,6 +322,7 @@ export const completeProfileInfo = [
     placeholder: "A short bio about yourself...",
   },
 ];
+// Feature Card Data
 export const FeatureCards = [
   {
     id: 1,
@@ -347,6 +366,7 @@ export const FeatureCards = [
     icon: IoIosNotifications,
   },
 ];
+// Stats Data
 export const StatsInfo = [
   { id: 1, title: "2,400+", description: "Teams using feedly" },
   { id: 2, title: "1.2M", description: "Feedbacks collected" },
@@ -478,3 +498,92 @@ export const categoriesIcon = [
     color: "bg-yellow-100 text-yellow-500",
   },
 ];
+// Pricing Data
+export const plans = [
+  {
+    id: "free",
+    name: "Free",
+    price: "$0",
+    period: "",
+    description: "Perfect for trying out feedly and exploring basic insights.",
+    features: [
+      { id: 1, feature: "Analyze up to 50 feedbacks" },
+      { id: 2, feature: "Understand general sentiment" },
+    ],
+    cta: "Get Started",
+    href: "/register",
+    highlighted: false,
+  },
+  {
+    id: "starter",
+    name: "Starter",
+    price: "$9",
+    period: "/month",
+    description:
+      "Ideal for growing teams who want to act on customer feedback.",
+    features: [
+      { id: 1, feature: "Analyze up to 500 feedbacks" },
+      { id: 2, feature: "Discover top customer issues" },
+      { id: 3, feature: "Get actionable suggestions" },
+    ],
+    cta: "Start Free Trial",
+    href: "/register",
+    highlighted: true,
+    badge: "Most Popular",
+  },
+  {
+    id: "pro",
+    name: "Pro",
+    price: "$19",
+    period: "/month",
+    description:
+      "For teams that need full power, deep analytics, and complete control.",
+    features: [
+      { id: 1, feature: "Unlimited feedback analysis" },
+      { id: 2, feature: "Advanced insights & trends" },
+      { id: 3, feature: "Export data" },
+    ],
+    cta: "Upgrade Now",
+    href: "/register",
+    highlighted: false,
+  },
+];
+// Footer Data
+export const footerLinks = {
+  Product: [
+    { label: "Features", href: "#features" },
+    { label: "Analytics", href: "#stats" },
+    { label: "How It Works", href: "#howitworks" },
+    { label: "Pricing", href: "#pricing" },
+  ],
+  Company: [
+    { label: "About Us", href: "#" },
+    { label: "Blog", href: "#" },
+    { label: "Careers", href: "#" },
+    { label: "Contact", href: "#" },
+  ],
+  Resources: [
+    { label: "Documentation", href: "#" },
+    { label: "API Reference", href: "#" },
+    { label: "Community", href: "#" },
+    { label: "Support", href: "#" },
+  ],
+  Legal: [
+    { label: "Privacy Policy", href: "#" },
+    { label: "Terms of Service", href: "#" },
+    { label: "Cookie Policy", href: "#" },
+  ],
+};
+export const socialLinks = [
+  { id: 1, icon: FiGithub, href: "#", label: "GitHub" },
+  { id: 2, icon: FiTwitter, href: "#", label: "Twitter" },
+  { id: 3, icon: FiLinkedin, href: "#", label: "LinkedIn" },
+  { id: 4, icon: FiMail, href: "mailto:hello@feedly.app", label: "Email" },
+];
+export const CTA = {
+  title: "Ready to transform your",
+  highlight: "feedback workflow",
+  description:
+    " Join thousands of teams who use feedly to collect and act on user feedback effectively.",
+  button: "Get Started Free",
+};

@@ -1,49 +1,14 @@
 import Link from "next/link";
 import Logo from "../Logo/Logo";
-import {
-  FiGithub,
-  FiTwitter,
-  FiLinkedin,
-  FiMail,
-  FiArrowUpRight,
-} from "react-icons/fi";
-
-const footerLinks = {
-  Product: [
-    { label: "Features", href: "#features" },
-    { label: "Analytics", href: "#stats" },
-    { label: "How It Works", href: "#howitworks" },
-    { label: "Pricing", href: "#pricing" },
-  ],
-  Company: [
-    { label: "About Us", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Careers", href: "#" },
-    { label: "Contact", href: "#" },
-  ],
-  Resources: [
-    { label: "Documentation", href: "#" },
-    { label: "API Reference", href: "#" },
-    { label: "Community", href: "#" },
-    { label: "Support", href: "#" },
-  ],
-  Legal: [
-    { label: "Privacy Policy", href: "#" },
-    { label: "Terms of Service", href: "#" },
-    { label: "Cookie Policy", href: "#" },
-  ],
-};
-
-const socialLinks = [
-  { icon: FiGithub, href: "#", label: "GitHub" },
-  { icon: FiTwitter, href: "#", label: "Twitter" },
-  { icon: FiLinkedin, href: "#", label: "LinkedIn" },
-  { icon: FiMail, href: "mailto:hello@feedly.app", label: "Email" },
-];
+import { FiArrowUpRight } from "react-icons/fi";
+import { footerLinks, socialLinks, CTA } from "../../app/data/data";
+import SocialLinkItem from "./components/SocialLinkItem";
+import FooterColumn from "./components/FooterColumn";
 
 export default function Footer() {
+  const year = new Date().getFullYear();
   return (
-    <footer className="relative mt-10 overflow-hidden">
+    <footer aria-label="Site footer" className="relative mt-10 overflow-hidden">
       {/* Top gradient divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-brand-400/50 to-transparent" />
 
@@ -56,15 +21,14 @@ export default function Footer() {
         {/* CTA Section */}
         <div className="mb-16 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-stone-900 tracking-tight mb-4">
-            Ready to transform your{" "}
+            {CTA["title"]}{" "}
             <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
-              feedback workflow
+              {CTA["highlight"]}
             </span>
             ?
           </h2>
           <p className="text-stone-500 max-w-lg mx-auto mb-8 text-base">
-            Join thousands of teams who use feedly to collect and act on user
-            feedback effectively.
+            {CTA["description"]}
           </p>
           <Link
             href="/register"
@@ -72,7 +36,7 @@ export default function Footer() {
                        hover:bg-brand-700 hover:shadow-lg hover:shadow-brand-500/25
                        transition-all duration-300 group"
           >
-            Get Started Free
+            {CTA["button"]}
             <FiArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
@@ -95,40 +59,18 @@ export default function Footer() {
             {/* Social Links */}
             <div className="flex gap-3">
               {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg
-                             bg-stone-100 text-stone-500
-                             hover:bg-brand-50 hover:text-brand-600
-                             transition-all duration-200"
-                >
-                  <social.icon className="w-4 h-4" />
-                </a>
+                <SocialLinkItem
+                  key={social.id}
+                  social={social}
+                  Icon={social.icon}
+                />
               ))}
             </div>
           </div>
 
           {/* Link Columns */}
           {Object.entries(footerLinks).map(([title, links]) => (
-            <div key={title}>
-              <h3 className="text-sm font-semibold text-stone-900 uppercase tracking-wider mb-4">
-                {title}
-              </h3>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-stone-500 hover:text-brand-600 transition-colors duration-200"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            <FooterColumn key={title} title={title} links={links} />
           ))}
         </div>
 
@@ -136,7 +78,7 @@ export default function Footer() {
         <div className="h-px bg-stone-200 mb-6" />
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 pb-2">
           <p className="text-sm text-stone-400">
-            © {new Date().getFullYear()} feedly. All rights reserved.
+            © {year} feedly. All rights reserved.
           </p>
           <div className="flex items-center gap-1 text-sm text-stone-400">
             Made with
