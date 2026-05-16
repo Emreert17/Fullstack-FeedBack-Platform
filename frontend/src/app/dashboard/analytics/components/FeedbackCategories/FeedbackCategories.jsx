@@ -2,14 +2,15 @@ import Categories from "./Categories";
 
 export default function RecentCategories({ data }) {
   const total = data?.reduce((acc, curr) => acc + curr.count, 0);
-  return (
-    <div className="border border-stone-200 rounded-xl p-6 bg-white shadow-sm">
-      <h4 className="text-md font-semibold text-stone-800">Top categories</h4>
-      <p className="text-xs font-medium text-stone-500 mb-4">
-        By mention volume
-      </p>
 
-      <div className="flex flex-col gap-4">
+  return (
+    <div className="bg-white border border-slate-200/60 rounded-2xl p-6">
+      <div className="mb-5">
+        <h3 className="text-sm font-semibold text-slate-800">Top Categories</h3>
+        <p className="text-[12px] text-slate-400 mt-0.5">By mention volume</p>
+      </div>
+
+      <div className="flex flex-col gap-1">
         {data?.map((item) => (
           <Categories key={item._id} item={item} total={total} />
         ))}

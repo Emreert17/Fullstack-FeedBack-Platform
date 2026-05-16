@@ -1,7 +1,9 @@
 "use client";
+
 import PersonalInformation from "./PersonalInformation";
 import ProfileStatus from "./ProfileStatus";
 import { useState, useEffect } from "react";
+
 export default function ProfileContainer() {
   const [form, setForm] = useState({
     username: "",
@@ -29,7 +31,6 @@ export default function ProfileContainer() {
           },
         );
         const data = await res.json();
-        console.log(data);
         setForm({
           username: data.username || "",
           email: data.email || "",
@@ -50,16 +51,13 @@ export default function ProfileContainer() {
   }, []);
 
   return (
-    <>
-      <div className="flex gap-8">
-        <aside className="w-80 shrink-0">
-          <ProfileStatus />
-        </aside>
-
-        <main className="flex-1">
-          <PersonalInformation form={form} />
-        </main>
-      </div>
-    </>
+    <div className="flex gap-6 items-start">
+      <aside className="w-72 shrink-0 sticky top-6">
+        <ProfileStatus />
+      </aside>
+      <main className="flex-1 min-w-0">
+        <PersonalInformation form={form} />
+      </main>
+    </div>
   );
 }

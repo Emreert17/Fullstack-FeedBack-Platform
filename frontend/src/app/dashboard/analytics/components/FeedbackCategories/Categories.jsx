@@ -8,27 +8,32 @@ export default function Categories({ item, total }) {
   const icon = category?.icon;
 
   return (
-    <div className="flex items-center justify-between">
-      <div className={`${category?.color} rounded-md p-2 mr-5`}>
-        <span>{React.createElement(icon)}</span>
-      </div>
-      <div className="flex flex-col min-w-[80px]">
-        <span className="text-sm text-stone-500">
+    <div className="group flex items-center gap-4 py-2 px-1 rounded-lg transition-colors duration-200 hover:bg-slate-50/60">
+      {/* Icon */}
+      <span
+        className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${category?.color}`}
+      >
+        {React.createElement(icon, { size: 14 })}
+      </span>
+
+      {/* Label + count */}
+      <div className="flex flex-col min-w-[90px]">
+        <span className="text-sm font-medium text-slate-700">
           {transformUppercase(item._id)}
         </span>
-        <span className="text-sm font-semibold text-stone-800">
-          {item.count}
-        </span>
+        <span className="text-[12px] text-slate-400">{item.count} items</span>
       </div>
 
-      <div className="flex-1 h-2 border border-stone-100 bg-stone-200 rounded-full overflow-hidden">
+      {/* Progress bar */}
+      <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
         <div
           style={{ width: `${percentage}%` }}
-          className="h-full bg-red-500 rounded-full transition-all duration-500"
+          className="h-full bg-blue-400 rounded-full transition-all duration-700 ease-out"
         />
       </div>
 
-      <span className="text-sm text-stone-600 w-[40px] text-right">
+      {/* Percentage */}
+      <span className="text-[13px] font-semibold text-slate-500 w-[40px] text-right tabular-nums">
         {percentage}%
       </span>
     </div>

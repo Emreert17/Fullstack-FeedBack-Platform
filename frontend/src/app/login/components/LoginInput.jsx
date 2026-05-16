@@ -8,7 +8,7 @@ export default function LoginInput({ input, handleChange, value }) {
         </span>
 
         <input
-          className="w-full text-sm border-2 border-stone-300  border p-2 pl-9 rounded-md placeholder:ps-1"
+          className="w-full text-sm border-2 border-stone-300  border p-2 pl-9 rounded-lg placeholder:ps-1 placeholder:font-medium"
           onChange={handleChange}
           value={value}
           type={input.type}

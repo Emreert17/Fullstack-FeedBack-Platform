@@ -2,7 +2,7 @@ import { LuLayoutDashboard, LuList, LuUser, LuPlus } from "react-icons/lu";
 import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdWork, MdApartment, MdLock, MdLocationOn } from "react-icons/md";
-import { RiUserSettingsFill } from "react-icons/ri";
+import { FiUser, FiSettings } from "react-icons/fi";
 import {
   FaEnvelope,
   FaBuilding,
@@ -100,6 +100,20 @@ export const registerInput = [
     icon: MdLock,
   },
 ];
+export const dropdownLinks = [
+  {
+    id: 1,
+    text: "Profile",
+    icon: FiUser,
+    href: "/dashboard/profile",
+  },
+  {
+    id: 2,
+    text: "Settings",
+    icon: FiSettings,
+    href: "/dashboard/settings",
+  },
+];
 export const sidebarLinks = [
   {
     id: 1,
@@ -108,7 +122,7 @@ export const sidebarLinks = [
       {
         id: 1,
         label: "Overview",
-        href: "/dashboard/overview",
+        href: "/dashboard",
         icon: LuLayoutDashboard,
       },
       {
@@ -119,6 +133,7 @@ export const sidebarLinks = [
       },
     ],
   },
+
   {
     id: 2,
     title: "Feedback",
@@ -140,25 +155,6 @@ export const sidebarLinks = [
         label: "Create Feedback",
         href: "/dashboard/create-feedback",
         icon: LuPlus,
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Settings",
-    items: [
-      { id: 1, label: "Profile", href: "/dashboard/profile", icon: CgProfile },
-      {
-        id: 2,
-        label: "Account",
-        href: "/dashboard/account",
-        icon: RiUserSettingsFill,
-      },
-      {
-        id: 3,
-        label: "Security",
-        href: "/dashboard/account/security",
-        icon: MdLock,
       },
     ],
   },

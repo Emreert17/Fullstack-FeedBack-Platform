@@ -7,8 +7,9 @@ import KPICards from "./kpiCards";
 
 export default function AnalyticsContainer() {
   const [analytics, setAnalytics] = useState([]);
+
   useEffect(() => {
-    const getAnalyticgetAnalyticsData = async () => {
+    const getAnalyticsData = async () => {
       try {
         const token = localStorage.getItem("token");
         const res = await fetch(
@@ -25,33 +26,31 @@ export default function AnalyticsContainer() {
           throw new Error("Something went wrong!");
         }
         setAnalytics(data);
-        console.log(data);
       } catch (err) {
         console.log(err);
       }
     };
-    getAnalyticgetAnalyticsData();
+    getAnalyticsData();
   }, []);
+
   return (
-    <>
-      <div>
-        <AnalyticsHeader />
-        <div className="flex flex-col gap-6">
-          <div className="grid grid-cols-4 gap-6 py-3">
-            {analytics.kpiCards?.map((card) => (
-              <KPICards key={card.id} card={card} />
-            ))}
-          </div>
-          <div>
-            <AnalyticsChart
-              data={analytics.dailyFeedback && analytics.dailyFeedback}
-            />
-          </div>
-          <div className="grid grid-cols-2">
-            <RecentCategories data={analytics.category} />
-          </div>
-        </div>
+    <div className="flex flex-col gap-6">
+      <AnalyticsHeader />
+
+      {/* KPI row */}
+      <div className="grid grid-cols-4 gap-4">
+        {analytics.kpiCards?.map((card) => (
+          <KPICards key={card.id} card={card} />
+        ))}
       </div>
-    </>
+
+      {/* Chart */}
+      <AnalyticsChart data={analytics.dailyFeedback} />
+
+      {/* Categories — half width */}
+      <div className="grid grid-cols-2 gap-4">
+        <RecentCategories data={analytics.category} />
+      </div>
+    </div>
   );
 }
