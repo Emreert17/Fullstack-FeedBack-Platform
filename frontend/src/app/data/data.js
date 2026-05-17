@@ -121,12 +121,6 @@ export const sidebarLinks = [
     items: [
       {
         id: 1,
-        label: "Overview",
-        href: "/dashboard",
-        icon: LuLayoutDashboard,
-      },
-      {
-        id: 2,
         label: "Analytics",
         href: "/dashboard/analytics",
         icon: IoAnalytics,

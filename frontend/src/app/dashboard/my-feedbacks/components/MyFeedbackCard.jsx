@@ -1,4 +1,5 @@
 "use client";
+
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { poppins } from "../../../layout";
@@ -17,88 +18,86 @@ export default function MyFeedbackCard({
 
   return (
     <div
-      className={`group relative flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-all duration-200 cursor-pointer
-        ${
-          isSelected
-            ? "bg-stone-50 border-stone-300 shadow-sm"
-            : "bg-white border-stone-200 hover:border-stone-200 hover:shadow-sm"
-        }`}
+      className={`
+        group relative flex items-start gap-3
+        px-4 py-3.5
+        transition-all duration-150 cursor-pointer
+        border-b border-slate-100
+        ${isSelected ? "bg-slate-50" : "hover:bg-slate-50/60"}
+      `}
     >
-      {/* Selected bar */}
+      {/* LEFT ACTIVE INDICATOR */}
       {isSelected && (
-        <span className="absolute left-0 top-3 bottom-3 w-[3px] bg-stone-400 rounded-full" />
+        <span className="absolute left-0 top-3 bottom-3 w-[2.5px] rounded-r-full bg-slate-700" />
       )}
 
-      {/* Vote */}
+      {/* VOTE */}
       <button
         disabled={isOwn}
         onClick={(e) => {
           e.stopPropagation();
-          if (!isOwn && typeof onClick === "function") onClick(e);
+          if (!isOwn) onClick(e);
         }}
-        className={`flex flex-col items-center justify-center gap-0.5 min-w-[32px] rounded-lg px-1.5 py-1.5 border transition-all duration-150
+        className={`
+          flex flex-col items-center justify-center
+          min-w-[30px] gap-0.5
+          rounded-lg px-1.5 py-1.5 border shrink-0
+          transition-all duration-150
+
           ${
             isOwn
-              ? "bg-stone-100 border-stone-300 text-stone-600"
+              ? "bg-slate-50 border-slate-200/60 text-slate-300 cursor-default"
               : feedback.voted
-                ? "bg-indigo-50 border-indigo-200 text-indigo-600"
-                : "bg-stone-50 border-stone-200 text-stone-400 group-hover:border-stone-300 group-hover:text-stone-600"
-          }`}
+                ? "bg-slate-100 border-slate-300 text-slate-700"
+                : "bg-slate-50 border-slate-200/80 text-slate-400 group-hover:text-slate-600 group-hover:border-slate-300"
+          }
+        `}
       >
-        <IoIosArrowUp size={13} />
-        <span className="text-[10px] font-semibold text-stone-800 tabular-nums">
+        <IoIosArrowUp size={12} />
+        <span className="text-[10px] font-semibold text-slate-600 tabular-nums leading-none">
           {feedback.voteCount || 0}
         </span>
       </button>
 
-      {/* Content */}
+      {/* CONTENT */}
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-        {/* Top row */}
+        {/* TOP ROW */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
-            {/* Badge */}
-            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center flex-shrink-0 ring-1 ring-violet-200">
+            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center ring-1 ring-violet-200/60 shrink-0">
               {profileBadgeTransformation(feedback.userId?.username)}
             </span>
-
-            {/* You indicator */}
             {isOwn && (
-              <span className="text-[10px] text-stone-400 font-medium">
-                You
-              </span>
+              <span className="text-[10px] text-slate-400 font-medium">You</span>
             )}
           </div>
-
-          <span className="text-[10px] font-medium text-stone-500 flex-shrink-0 tabular-nums">
+          <span className="text-[10px] text-slate-400 tabular-nums">
             {formattedDate(feedback.createdAt)}
           </span>
         </div>
 
-        {/* Title */}
+        {/* TITLE */}
         <h4
-          className={`${poppins.className} text-[13px] font-medium text-stone-800 leading-snug line-clamp-2`}
+          className={`${poppins.className} text-[13px] font-medium text-slate-800 leading-snug line-clamp-2`}
         >
           {feedback.title}
         </h4>
 
-        {/* Bottom */}
+        {/* BOTTOM */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-1.5">
             <span
-              className={`${colorChange(
-                feedback.status,
-              )} text-[10px] font-semibold px-2 py-0.5 rounded-full`}
+              className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${colorChange(feedback.status)}`}
             >
               {feedback.status}
             </span>
-            <span className="text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200/60 px-2 py-0.5 rounded-full">
               {transformUppercase(feedback.category)}
             </span>
           </div>
-
-          <div className="flex items-center gap-1 text-[10px] text-stone-300">
-            <FaComment size={10} />
-            <span>{feedback.commentCount}</span>
+          <div className="flex items-center gap-1 text-[10px] text-slate-300">
+            <FaComment size={9} />
+            <span className="tabular-nums">{feedback.commentCount}</span>
           </div>
         </div>
       </div>

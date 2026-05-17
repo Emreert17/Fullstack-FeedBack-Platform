@@ -34,22 +34,24 @@ export default function AnalyticsContainer() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-8">
       <AnalyticsHeader />
 
       {/* KPI row */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
         {analytics.kpiCards?.map((card) => (
           <KPICards key={card.id} card={card} />
         ))}
       </div>
 
-      {/* Chart */}
-      <AnalyticsChart data={analytics.dailyFeedback} />
-
-      {/* Categories — half width */}
-      <div className="grid grid-cols-2 gap-4">
-        <RecentCategories data={analytics.category} />
+      {/* Chart + Categories row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        <div className="lg:col-span-2">
+          <AnalyticsChart data={analytics.dailyFeedback} />
+        </div>
+        <div className="lg:col-span-1">
+          <RecentCategories data={analytics.category} />
+        </div>
       </div>
     </div>
   );

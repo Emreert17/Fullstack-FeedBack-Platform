@@ -8,7 +8,7 @@ export default function Categories({ item, total }) {
   const icon = category?.icon;
 
   return (
-    <div className="group flex items-center gap-4 py-2 px-1 rounded-lg transition-colors duration-200 hover:bg-slate-50/60">
+    <div className="flex items-center gap-4 py-3 first:pt-1 last:pb-1">
       {/* Icon */}
       <span
         className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 ${category?.color}`}
@@ -17,23 +17,23 @@ export default function Categories({ item, total }) {
       </span>
 
       {/* Label + count */}
-      <div className="flex flex-col min-w-[90px]">
-        <span className="text-sm font-medium text-slate-700">
+      <div className="flex flex-col min-w-[96px]">
+        <span className="text-[13px] font-medium text-slate-700 leading-snug">
           {transformUppercase(item._id)}
         </span>
-        <span className="text-[12px] text-slate-400">{item.count} items</span>
+        <span className="text-[11px] text-slate-400 mt-0.5">{item.count} items</span>
       </div>
 
       {/* Progress bar */}
       <div className="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
         <div
           style={{ width: `${percentage}%` }}
-          className="h-full bg-blue-400 rounded-full transition-all duration-700 ease-out"
+          className="h-full bg-blue-500 rounded-full transition-all duration-700 ease-out"
         />
       </div>
 
       {/* Percentage */}
-      <span className="text-[13px] font-semibold text-slate-500 w-[40px] text-right tabular-nums">
+      <span className="text-[12px] font-semibold text-slate-500 w-[36px] text-right tabular-nums">
         {percentage}%
       </span>
     </div>

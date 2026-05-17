@@ -1,8 +1,19 @@
 "use client";
 import { useEffect, useState } from "react";
 import AllFeedbackCard from "./AllFeedbackCard";
-import AllFeedbackHeader from "./AllFeedbackHeader";
 import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
+import SearchFeedback from "./SearchFeedback";
+import Link from "next/link";
+import { TiPlus } from "react-icons/ti";
+
+const STATUS_FILTERS = ["all", "open", "in-progress", "planned", "done"];
+const FILTER_LABELS = {
+  all: "All",
+  open: "Open",
+  "in-progress": "In Progress",
+  planned: "Planned",
+  done: "Done",
+};
 
 export default function AllFeedbacksContainer() {
   const [page, setPage] = useState(1);
@@ -10,6 +21,7 @@ export default function AllFeedbacksContainer() {
   const [hasMore, setHasMore] = useState(true);
   const [allFeedback, setAllFeedback] = useState([]);
   const [selected, setSelected] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("all");
 
   useEffect(() => {
     const fetchAllFeedbacks = async () => {
@@ -56,8 +68,10 @@ export default function AllFeedbacksContainer() {
 
   const handleVote = async (e, feedbackId) => {
     e.preventDefault();
+
     try {
       const token = localStorage.getItem("token");
+
       const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/vote", {
         method: "POST",
         headers: {
@@ -68,15 +82,23 @@ export default function AllFeedbacksContainer() {
           feedbackId: feedbackId,
         }),
       });
+
       const data = await res.json();
+
       if (!res.ok) {
         throw new Error(data.error || "Something went wrong");
       }
+
       console.log(data);
+
       setAllFeedback((prev) =>
         prev.map((fb) =>
           fb._id === feedbackId
-            ? { ...fb, voteCount: data.voteCount, voted: data.voted }
+            ? {
+                ...fb,
+                voteCount: data.voteCount,
+                voted: data.voted,
+              }
             : fb,
         ),
       );
@@ -90,63 +112,114 @@ export default function AllFeedbacksContainer() {
     setSelected(selectedFeedback);
   };
 
+  const visibleFeedback =
+    activeFilter === "all"
+      ? allFeedback
+      : allFeedback.filter((fb) => fb.status === activeFilter);
+
   return (
-    <>
-      <div>
-        <AllFeedbackHeader />
-        <div className="grid grid-cols-5 gap-8">
-          <div className="col-span-2 flex flex-col gap-3 border border-stone-200 rounded-lg h-[calc(100vh-200px)] overflow-y-auto p-6">
-            {allFeedback.length > 0 &&
-              allFeedback.map((feedback) => (
-                <div
-                  onClick={() => handleDetailPage(feedback._id)}
-                  key={feedback._id}
-                  className="cursor-pointer"
-                >
-                  <AllFeedbackCard
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleVote(e, feedback._id);
-                    }}
-                    feedback={feedback}
-                  />
-                </div>
-              ))}
+    <div className="grid grid-cols-6 h-screen bg-[#f8fafc]">
+      {/* LEFT PANEL */}
+      <div className="col-span-2 border-r border-slate-200/80 flex flex-col overflow-hidden bg-white">
+
+        {/* PANEL HEADER */}
+        <div className="flex items-center justify-between px-4 pt-5 pb-4 border-b border-slate-100">
+          <div>
+            <h2 className="text-[13px] font-semibold text-slate-800 leading-none">
+              All Feedbacks
+            </h2>
+            <p className="text-[11px] text-slate-400 mt-1 tabular-nums">
+              {allFeedback.length} items
+            </p>
+          </div>
+          <Link
+            href="/dashboard/create-feedback"
+            className="flex items-center gap-1 text-[11px] font-medium text-white bg-slate-900 px-2.5 py-1.5 rounded-lg hover:bg-slate-700 transition-colors duration-150"
+          >
+            <TiPlus size={13} />
+            New
+          </Link>
+        </div>
+
+        {/* SEARCH */}
+        <SearchFeedback />
+
+        {/* STATUS FILTER TABS */}
+        <div className="flex items-center gap-0.5 px-3 py-2 border-b border-slate-100 overflow-x-auto no-scrollbar">
+          {STATUS_FILTERS.map((status) => (
             <button
-              disabled={!hasMore || loading}
-              onClick={() => setPage((prev) => prev + 1)}
-              className={`
-                   relative flex items-center justify-center
-                   px-5 py-2.5 rounded-lg text-sm font-medium
-                   transition-all duration-200
-                   border border-transparent
-
-              ${
-                loading || !hasMore
-                  ? "bg-gray-100 text-gray-400 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-800 active:scale-[0.98]"
-              }
-
-                   shadow-sm hover:shadow-md
-              `}
+              key={status}
+              onClick={() => setActiveFilter(status)}
+              className={`shrink-0 px-2.5 py-1 rounded-md text-[11px] font-medium transition-all duration-150 ${
+                activeFilter === status
+                  ? "bg-slate-100 text-slate-800"
+                  : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
+              }`}
             >
-              {loading ? (
-                <span className="flex items-center gap-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
-                  Loading...
-                </span>
-              ) : hasMore ? (
-                "Load More"
-              ) : (
-                "No More Data"
-              )}
+              {FILTER_LABELS[status]}
             </button>
-          </div>
-          <div className="col-span-3">
-            <AllFeedbackDetail selected={selected} />
-          </div>
+          ))}
+        </div>
+
+        {/* FEED LIST */}
+        <div className="flex-1 overflow-y-auto no-scrollbar">
+          {loading && allFeedback.length === 0 ? (
+            <div className="flex items-center justify-center h-24">
+              <span className="w-4 h-4 border-[1.5px] border-slate-200 border-t-slate-500 rounded-full animate-spin" />
+            </div>
+          ) : visibleFeedback.length === 0 ? (
+            <div className="flex items-center justify-center h-24">
+              <p className="text-[12px] text-slate-400">No items found</p>
+            </div>
+          ) : (
+            visibleFeedback.map((feedback) => (
+              <div
+                key={feedback._id}
+                onClick={() => handleDetailPage(feedback._id)}
+                className="cursor-pointer"
+              >
+                <AllFeedbackCard
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleVote(e, feedback._id);
+                  }}
+                  feedback={feedback}
+                  isSelected={selected?._id === feedback._id}
+                />
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* LOAD MORE */}
+        <div className="px-4 py-3 border-t border-slate-100">
+          <button
+            disabled={!hasMore || loading}
+            onClick={() => setPage((prev) => prev + 1)}
+            className={`w-full py-2 text-[12px] font-medium rounded-lg transition-all duration-150 ${
+              loading || !hasMore
+                ? "text-slate-300 cursor-not-allowed"
+                : "text-slate-500 hover:text-slate-800 hover:bg-slate-50"
+            }`}
+          >
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <span className="w-3 h-3 border-[1.5px] border-slate-300 border-t-slate-600 rounded-full animate-spin" />
+                Loading
+              </span>
+            ) : hasMore ? (
+              "Load more"
+            ) : (
+              "All caught up"
+            )}
+          </button>
         </div>
       </div>
-    </>
+
+      {/* DETAIL PANEL */}
+      <div className="col-span-4 overflow-y-auto">
+        <AllFeedbackDetail selected={selected} />
+      </div>
+    </div>
   );
 }

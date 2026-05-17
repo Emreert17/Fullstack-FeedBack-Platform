@@ -1,38 +1,110 @@
 import { profileStatus } from "../../../data/data";
 import ProfileInput from "./ProfileInput";
-import { FaUserCircle } from "react-icons/fa";
+import Link from "next/link";
+import { RiEditLine } from "react-icons/ri";
+
+const identityNames = ["username", "email"];
+const workNames = ["jobtitle", "department", "companyname", "companysize"];
+const locationNames = ["country", "city"];
+const bioNames = ["bio"];
+
+const pick = (names) => profileStatus.filter((p) => names.includes(p.name));
 
 export default function PersonalInformation({ form }) {
+  const identityFields = pick(identityNames);
+  const workFields = pick(workNames);
+  const locationFields = pick(locationNames);
+  const bioField = pick(bioNames);
+
   return (
     <div className="bg-white border border-slate-200/60 rounded-2xl overflow-hidden">
       {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-slate-100">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center shadow-sm shadow-blue-100/40">
-            <FaUserCircle className="text-blue-500" size={16} />
-          </div>
-          <div>
-            <h3 className="text-base font-semibold text-slate-800 tracking-tight">
-              Personal Information
-            </h3>
-            <p className="text-[13px] text-slate-400 mt-0.5">
-              Your profile details and contact info.
-            </p>
-          </div>
+      <div className="px-6 py-4 border-b border-slate-100 flex items-center justify-between gap-4">
+        <div>
+          <h3 className="text-[14px] font-semibold text-slate-800 tracking-tight">
+            Personal Information
+          </h3>
+          <p className="text-[12px] text-slate-400 mt-0.5">
+            Your profile details and contact information.
+          </p>
         </div>
+        <Link
+          href="/dashboard/account/complete-profile"
+          className="inline-flex items-center gap-1.5 shrink-0 text-[12px] font-medium text-slate-500 hover:text-slate-800 border border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50 px-3 py-1.5 rounded-lg transition-all duration-150"
+        >
+          <RiEditLine size={13} />
+          Edit
+        </Link>
       </div>
 
-      {/* Fields grid */}
-      <div className="px-6 py-6">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-5">
-          {profileStatus.map((profile) => (
+      <div className="px-6 py-6 space-y-7">
+        {/* Identity */}
+        <section>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-4">
+            Identity
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            {identityFields.map((profile) => (
+              <ProfileInput
+                key={profile.id}
+                profile={profile}
+                value={form[profile.name]}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className="border-t border-slate-100/80" />
+
+        {/* Work */}
+        <section>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-4">
+            Work
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            {workFields.map((profile) => (
+              <ProfileInput
+                key={profile.id}
+                profile={profile}
+                value={form[profile.name]}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className="border-t border-slate-100/80" />
+
+        {/* Location */}
+        <section>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-4">
+            Location
+          </p>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+            {locationFields.map((profile) => (
+              <ProfileInput
+                key={profile.id}
+                profile={profile}
+                value={form[profile.name]}
+              />
+            ))}
+          </div>
+        </section>
+
+        <div className="border-t border-slate-100/80" />
+
+        {/* Bio */}
+        <section>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-4">
+            Bio
+          </p>
+          {bioField.map((profile) => (
             <ProfileInput
               key={profile.id}
               profile={profile}
               value={form[profile.name]}
             />
           ))}
-        </div>
+        </section>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 "use client";
+
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { formattedDate } from "../../../../utils/formattedDate";
@@ -14,8 +15,10 @@ export default function AllFeedbackDetail({ selected }) {
 
   const handleComment = async (e) => {
     e.preventDefault();
+
     try {
       const token = localStorage.getItem("token");
+
       const res = await fetch(
         process.env.NEXT_PUBLIC_API_URL +
           `/api/comments/${selected._id}/comment/add`,
@@ -28,8 +31,11 @@ export default function AllFeedbackDetail({ selected }) {
           body: JSON.stringify({ text }),
         },
       );
+
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong!");
+
+      if (!res.ok) throw new Error(data.error);
+
       setComment((prev) => [data, ...prev]);
       setText("");
     } catch (err) {
@@ -39,116 +45,156 @@ export default function AllFeedbackDetail({ selected }) {
 
   useEffect(() => {
     if (!selected?._id) return;
+
     const getComments = async () => {
       try {
         const token = localStorage.getItem("token");
+
         const res = await fetch(
           process.env.NEXT_PUBLIC_API_URL +
             `/api/comments/${selected._id}/comment`,
           {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
         );
+
         const data = await res.json();
-        if (!res.ok) throw new Error(data.error || "Something went wrong!");
+
+        if (!res.ok) throw new Error(data.error);
+
         setComment(data);
       } catch (err) {
         console.log(err);
       }
     };
+
     getComments();
   }, [selected?._id]);
 
-  /* Empty state */
   if (!selected) {
     return (
-      <div className="h-[600px] flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-stone-200 bg-stone-50/50">
-        <div className="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
-          <FaComment size={16} className="text-stone-300" />
+      <div className="flex h-full items-center justify-center bg-[#faf8f5]">
+        <div className="flex flex-col items-center gap-3 text-center">
+          {/* ICON */}
+          <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-200 bg-white shadow-sm">
+            <span className="text-stone-300 text-lg">💬</span>
+          </div>
+
+          {/* TEXT */}
+          <div>
+            <p className="text-sm font-medium text-stone-500">
+              No feedback selected
+            </p>
+
+            <p className="mt-1 text-xs text-stone-400">
+              Choose an item from the list to view details
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-stone-400 font-medium tracking-wide">
-          Select a feedback to view details
-        </p>
       </div>
     );
   }
 
   return (
-    <div className="rounded-2xl border border-stone-200 bg-white overflow-hidden shadow-sm">
-      {/* Header section */}
-      <div className="px-6 pt-6 pb-5 border-b border-stone-100">
-        {/* Author + date */}
-        <div className="flex items-center gap-2 mb-4">
-          <span className="w-7 h-7 rounded-full bg-violet-100 border border-violet-200 text-violet-700 text-[10px] font-semibold flex items-center justify-center ring-2 ring-white">
-            {profileBadgeTransformation(selected.userId.username)}
-          </span>
-          <span className="text-xs font-medium text-stone-600">
-            {selected.userId.username}
-          </span>
-          <span className="text-[11px] text-stone-300 ml-auto tabular-nums">
-            {formattedDate(selected.createdAt)}
-          </span>
+    <div className="flex h-full flex-col bg-[#faf8f5]">
+      {/* HEADER */}
+      <div className="px-8 pt-6 pb-5">
+        <div className="relative overflow-hidden rounded-2xl border border-stone-200/70 bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02),0_8px_24px_-12px_rgba(0,0,0,0.08)]">
+          {/* subtle accent strip */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-stone-300/60 to-transparent" />
+
+          <div className="p-7">
+            {/* TOP ROW */}
+            <div className="flex items-center justify-between mb-6">
+              {/* STATUS + CATEGORY */}
+              <div className="flex items-center gap-1.5">
+                <span
+                  className={`inline-flex items-center gap-1.5 text-[11px] font-medium px-2.5 py-1 rounded-full ${colorChange(selected.status)}`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-current opacity-70" />
+                  {selected.status}
+                </span>
+
+                <span className="text-[11px] font-medium bg-amber-50/80 text-amber-800 border border-amber-200/60 px-2.5 py-1 rounded-full">
+                  {selected.category}
+                </span>
+              </div>
+
+              {/* VOTES */}
+              <div className="flex items-center gap-1.5 text-xs border border-stone-200 bg-stone-50/50 rounded-full px-3 py-1">
+                <IoIosArrowUp className="text-stone-400" size={12} />
+                <span className="font-semibold text-stone-700 tabular-nums">
+                  {selected.voteCount || 0}
+                </span>
+                <span className="text-stone-400 font-normal">votes</span>
+              </div>
+            </div>
+
+            {/* USER */}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-100 to-violet-200/70 text-violet-700 flex items-center justify-center text-sm font-semibold ring-1 ring-violet-200/50">
+                {profileBadgeTransformation(selected.userId.username)}
+              </div>
+
+              <div className="leading-tight">
+                <div className="text-sm font-semibold text-stone-800">
+                  {selected.userId.username}
+                </div>
+
+                <div className="text-[11px] text-stone-400 mt-0.5">
+                  {selected.userId.username.toLowerCase()}@feedback.io
+                </div>
+              </div>
+
+              <div className="ml-auto text-[11px] text-stone-400 tabular-nums">
+                {formattedDate(selected.createdAt)}
+              </div>
+            </div>
+
+            {/* divider */}
+            <div className="h-px bg-stone-100 mb-4" />
+
+            {/* TITLE */}
+            <h1 className="font-serif text-[26px] font-medium text-stone-900 leading-[1.2] tracking-tight">
+              {selected.title}
+            </h1>
+
+            {/* DESCRIPTION */}
+            <p className="mt-4 text-[14px] text-stone-600 leading-[1.7]">
+              {selected.description}
+            </p>
+          </div>
         </div>
-
-        {/* Title */}
-        <h2 className="font-serif text-[19px] font-medium text-stone-900 leading-snug mb-2.5 tracking-tight">
-          {selected.title}
-        </h2>
-
-        {/* Description */}
-        <p className="text-sm text-stone-500 leading-relaxed">
-          {selected.description}
-        </p>
       </div>
 
-      {/* Meta bar: status, category, vote */}
-      <div className="flex items-center gap-2 px-6 py-3 bg-stone-50 border-b border-stone-100 flex-wrap">
-        <span
-          className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${colorChange(selected.status)}`}
-        >
-          {selected.status}
-        </span>
-        <span className="text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2.5 py-1 rounded-full">
-          {selected.category}
-        </span>
-        <div className="ml-auto flex items-center gap-1.5 text-[11px] font-semibold text-stone-500 border border-stone-200 bg-white rounded-full px-3 py-1 shadow-sm">
-          <IoIosArrowUp size={12} className="text-stone-400" />
-          {selected.voteCount || 0}
-          <span className="text-stone-300 font-normal">votes</span>
-        </div>
-      </div>
-
-      {/* Comments section */}
-      <div className="px-6 py-5">
-        {/* Section label */}
-        <div className="flex items-center justify-between mb-5">
-          <span className="text-[10px] uppercase tracking-widest font-semibold text-stone-400">
+      {/* COMMENTS SECTION */}
+      <div className="flex flex-1 flex-col bg-white border-t border-stone-200/70 min-h-0">
+        {/* HEADER */}
+        <div className="flex items-center justify-between px-8 py-3.5 border-b border-stone-100">
+          <span className="text-[10px] uppercase tracking-[0.2em] font-semibold text-stone-400">
             Comments
           </span>
-          <span className="flex items-center gap-1.5 text-[10px] text-stone-400 font-medium">
-            <FaComment size={10} />
-            {selected.commentCount}
+
+          <span className="flex items-center gap-1.5 text-[11px] text-stone-400 font-medium tabular-nums">
+            <FaComment size={9} />
+            {comment.length}
           </span>
         </div>
 
-        <div className="flex flex-col gap-6">
+        {/* COMMENTS LIST */}
+        <div className="flex-1 overflow-y-auto px-8 py-6 bg-[#faf8f5] no-scrollbar">
+          <CommentList comment={comment} />
+        </div>
+
+        {/* INPUT */}
+        <div className="border-t border-stone-200/70 bg-white px-8 py-4">
           <CommentInput
             handleComment={handleComment}
             setText={setText}
             text={text}
           />
-
-          {comment.length > 0 ? (
-            <CommentList comment={comment} />
-          ) : (
-            <div className="flex flex-col items-center gap-2 py-8 rounded-xl border border-dashed border-stone-200 bg-stone-50/60">
-              <FaComment size={14} className="text-stone-200" />
-              <p className="text-[12px] text-stone-400">
-                No comments yet — be the first
-              </p>
-            </div>
-          )}
         </div>
       </div>
     </div>

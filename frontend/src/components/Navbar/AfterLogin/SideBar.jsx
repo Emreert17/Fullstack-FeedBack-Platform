@@ -3,9 +3,9 @@ import Tab from "./Tab";
 
 export default function SideBar() {
   return (
-    <aside className="w-[270px] min-h-screen bg-white border-r border-slate-200/80 flex flex-col">
+    <aside className="w-[270px] h-screen bg-white border-r border-slate-200/80 flex flex-col">
       <nav className="flex-1 overflow-y-auto px-3 py-6">
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-6">
           {sidebarLinks.map((section, index) => (
             <div key={section.id} className="flex flex-col gap-2">
               {/* Section Title */}
@@ -21,7 +21,7 @@ export default function SideBar() {
               </div>
 
               {index !== sidebarLinks.length - 1 && (
-                <div className="h-px bg-gradient-to-r from-transparent via-slate-200/60 to-transparent mt-2" />
+                <div className="h-px bg-gradient-to-r from-transparent via-slate-300/60 to-transparent mt-2" />
               )}
             </div>
           ))}

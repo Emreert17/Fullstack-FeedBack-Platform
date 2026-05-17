@@ -3,24 +3,29 @@ import { profileBadgeTransformation } from "../../../../utils/profileBadge";
 
 export default function Comment({ comment }) {
   return (
-    <div className="flex gap-3 p-4 rounded-xl bg-white border border-stone-100 hover:border-stone-200 transition">
-      <span className="w-8 h-8 rounded-full bg-green-100 border border-green-300 text-green-800 text-xs font-medium flex items-center justify-center shrink-0">
+    <div className="flex gap-3">
+      {/* AVATAR */}
+      <div className="h-9 w-9 rounded-full bg-slate-200 flex items-center justify-center text-xs font-semibold text-slate-600 shrink-0">
         {profileBadgeTransformation(comment.userId.username)}
-      </span>
+      </div>
 
+      {/* BUBBLE */}
       <div className="flex-1">
-        <div className="flex items-center justify-between">
-          <h5 className="text-sm font-medium text-stone-800">
-            {comment.userId.username}
-          </h5>
-          <span className="text-xs text-stone-400">
-            {formattedDate(comment.createdAt)}
-          </span>
-        </div>
+        <div className="rounded-2xl bg-white border border-slate-200 px-4 py-3 shadow-sm">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm font-medium text-slate-800">
+              {comment.userId.username}
+            </span>
 
-        <p className="text-sm text-stone-600 mt-1 leading-relaxed">
-          {comment.text}
-        </p>
+            <span className="text-[11px] text-slate-400">
+              {formattedDate(comment.createdAt)}
+            </span>
+          </div>
+
+          <p className="text-sm text-slate-600 leading-relaxed">
+            {comment.text}
+          </p>
+        </div>
       </div>
     </div>
   );

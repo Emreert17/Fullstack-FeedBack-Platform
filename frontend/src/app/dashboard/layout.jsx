@@ -9,11 +9,13 @@ export default function DashboardLayout({ children }) {
   return (
     <>
       <ProtectedRoute>
-        <div className="flex flex-col">
+        <div className="flex min-h-screen flex-col bg-slate-50">
           <TopBar />
-          <div className="flex">
+
+          <div className="flex flex-1">
             <SideBar />
-            <main className="w-full bg-slate-50 py-2 px-10">{children}</main>
+
+            <main className="flex-1 h-screen overflow-y-auto">{children}</main>
           </div>
         </div>
       </ProtectedRoute>

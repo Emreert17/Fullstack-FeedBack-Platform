@@ -8,7 +8,7 @@ export default function DropdownLink({ link }) {
     <>
       <Link href={link.href} className={linkStyle}>
         {React.createElement(link.icon, { size: 17 })}
-        Profile
+        {link.text}
       </Link>
     </>
   );

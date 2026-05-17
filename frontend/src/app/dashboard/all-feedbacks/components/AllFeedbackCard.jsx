@@ -1,4 +1,5 @@
 "use client";
+
 import { IoIosArrowUp } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { poppins } from "../../../layout";
@@ -10,59 +11,65 @@ import { profileBadgeTransformation } from "../../../utils/profileBadge";
 export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
   return (
     <div
-      className={`group relative flex items-start gap-3 px-4 py-3.5 rounded-xl border transition-all duration-200 cursor-pointer
-        ${
-          isSelected
-            ? "bg-stone-50 border-stone-300 shadow-sm"
-            : "bg-white border-stone-200 hover:border-stone-200 hover:shadow-sm"
-        }`}
+      className={`
+        group relative flex items-start gap-3
+        px-4 py-4
+        transition-all duration-150 cursor-pointer
+        border-b border-slate-100
+        ${isSelected ? "bg-slate-50" : "hover:bg-slate-50/60"}
+      `}
     >
-      {/* Left accent bar when selected */}
+      {/* LEFT ACTIVE INDICATOR */}
       {isSelected && (
-        <span className="absolute left-0 top-3 bottom-3 w-[3px] rounded-full bg-stone-400 rounded-l-xl" />
+        <span className="absolute left-0 top-3 bottom-3 w-[2.5px] rounded-r-full bg-slate-700" />
       )}
 
-      {/* Vote button */}
+      {/* VOTE */}
       <button
         onClick={onClick}
-        className={`flex flex-col items-center justify-center gap-0.5 min-w-[32px] rounded-lg px-1.5 py-1.5 transition-all duration-150 cursor-pointer border
+        className={`
+          flex flex-col items-center justify-center gap-0.5
+          min-w-[30px] rounded-lg px-1.5 py-1.5
+          transition-all duration-150 cursor-pointer border shrink-0
+
           ${
             feedback.voted
-              ? "bg-indigo-50 border-indigo-200 text-indigo-600"
-              : "bg-stone-50 border-stone-200 text-stone-400 group-hover:border-stone-300 group-hover:text-stone-600"
-          }`}
+              ? "bg-indigo-50 border-indigo-200/80 text-indigo-600"
+              : "bg-slate-50 border-slate-200/80 text-slate-400 group-hover:border-slate-300 group-hover:text-slate-600"
+          }
+        `}
       >
-        <IoIosArrowUp size={13} />
-        <span className="text-[10px] font-semibold leading-none tabular-nums">
+        <IoIosArrowUp size={12} />
+        <span className="text-[10px] font-semibold tabular-nums leading-none">
           {feedback.voteCount || 0}
         </span>
       </button>
 
-      {/* Content */}
+      {/* CONTENT */}
       <div className="flex-1 min-w-0 flex flex-col gap-1.5">
-        {/* Author row */}
+        {/* AUTHOR ROW */}
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5 min-w-0">
-            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center flex-shrink-0 ring-1 ring-violet-200">
+            <span className="w-5 h-5 rounded-full bg-violet-100 text-violet-700 text-[9px] font-semibold flex items-center justify-center ring-1 ring-violet-200/60 shrink-0">
               {profileBadgeTransformation(feedback.userId.username)}
             </span>
-            <span className="text-[11px] text-stone-400 truncate font-medium">
+            <span className="text-[11px] text-slate-400 truncate font-medium">
               {feedback.userId.username}
             </span>
           </div>
-          <span className="text-[10px] font-medium text-stone-500 flex-shrink-0 tabular-nums">
+          <span className="text-[10px] text-slate-400 tabular-nums shrink-0">
             {formattedDate(feedback.createdAt)}
           </span>
         </div>
 
-        {/* Title */}
+        {/* TITLE */}
         <h4
-          className={`${poppins.className} text-[13px] font-medium text-stone-800 leading-snug line-clamp-2`}
+          className={`${poppins.className} text-[13px] font-medium text-slate-800 leading-snug line-clamp-2`}
         >
           {feedback.title}
         </h4>
 
-        {/* Tags + comment count */}
+        {/* TAGS ROW */}
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1.5">
             <span
@@ -70,13 +77,13 @@ export default function AllFeedbackCard({ feedback, onClick, isSelected }) {
             >
               {feedback.status}
             </span>
-            <span className="text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200 px-2 py-0.5 rounded-full">
+            <span className="text-[10px] font-medium bg-amber-50 text-amber-700 border border-amber-200/60 px-2 py-0.5 rounded-full">
               {transformUppercase(feedback.category)}
             </span>
           </div>
-          <div className="flex items-center gap-1 text-[10px] text-stone-300">
-            <FaComment size={10} />
-            <span>{feedback.commentCount}</span>
+          <div className="flex items-center gap-1 text-[10px] text-slate-300">
+            <FaComment size={9} />
+            <span className="tabular-nums">{feedback.commentCount}</span>
           </div>
         </div>
       </div>
