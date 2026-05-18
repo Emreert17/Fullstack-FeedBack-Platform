@@ -17,11 +17,24 @@ const FILTER_LABELS = {
 
 export default function AllFeedbacksContainer() {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [allFeedback, setAllFeedback] = useState([]);
   const [selected, setSelected] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
+
+  const url = new URL(process.env.NEXT_PUBLIC_API_URL + "/api/feedback");
+
+  url.searchParams.append("page", page);
+  url.searchParams.append("limit", 10);
+
+  if (searchValue) {
+    url.searchParams.append("q", searchValue);
+  }
+
+  console.log(inputValue);
 
   useEffect(() => {
     const fetchAllFeedbacks = async () => {
@@ -29,14 +42,10 @@ export default function AllFeedbacksContainer() {
         setLoading(true);
         const token = localStorage.getItem("token");
 
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_API_URL +
-            `/api/feedback?page=${page}&limit=10`,
-          {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const res = await fetch(url.toString(), {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         const data = await res.json();
 
@@ -64,7 +73,13 @@ export default function AllFeedbacksContainer() {
     };
 
     fetchAllFeedbacks();
-  }, [page]);
+  }, [page, searchValue]);
+
+  useEffect(() => {
+    setAllFeedback([]);
+    setPage(1);
+    setHasMore(true);
+  }, [searchValue]);
 
   const handleVote = async (e, feedbackId) => {
     e.preventDefault();
@@ -121,7 +136,6 @@ export default function AllFeedbacksContainer() {
     <div className="grid grid-cols-6 h-screen bg-[#f8fafc]">
       {/* LEFT PANEL */}
       <div className="col-span-2 border-r border-slate-200/80 flex flex-col overflow-hidden bg-white">
-
         {/* PANEL HEADER */}
         <div className="flex items-center justify-between px-4 pt-5 pb-4 border-b border-slate-100">
           <div>
@@ -142,7 +156,11 @@ export default function AllFeedbacksContainer() {
         </div>
 
         {/* SEARCH */}
-        <SearchFeedback />
+        <SearchFeedback
+          setInputValue={setInputValue}
+          inputValue={inputValue}
+          setSearchValue={setSearchValue}
+        />
 
         {/* STATUS FILTER TABS */}
         <div className="flex items-center gap-0.5 px-3 py-2 border-b border-slate-100 overflow-x-auto no-scrollbar">

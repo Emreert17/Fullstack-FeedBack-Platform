@@ -48,30 +48,37 @@ export default function LoginForm() {
   };
 
   return (
-    <>
-      <div className="w-120 flex flex-col gap-5 border-2 border-stone-300 p-12 rounded-lg shadow-xl">
-        <LoginHeader />
-        <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-          {loginInput.map((input) => (
-            <LoginInput
-              key={input.id}
-              handleChange={handleChange}
-              value={form[input.name]}
-              input={input}
-            />
-          ))}
-          <p className="text-red-600 font medium">{message && message}</p>
+    <div className="w-full max-w-[420px] bg-white border border-stone-200 rounded-2xl p-8 shadow-sm">
+      <LoginHeader />
+      <form className="flex flex-col gap-4 mt-6" onSubmit={handleSubmit}>
+        {loginInput.map((input) => (
+          <LoginInput
+            key={input.id}
+            handleChange={handleChange}
+            value={form[input.name]}
+            input={input}
+          />
+        ))}
+        {message && (
+          <p className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2.5">
+            {message}
+          </p>
+        )}
+        <div className="mt-2">
           <Button width="w-full" variant="primary" type="submit">
-            Login
+            Sign in
           </Button>
+        </div>
+        <p className="text-center text-xs text-stone-500">
+          Don&apos;t have an account?{" "}
           <Link
             href="/register"
-            className="text-xs font-medium text-center mt-3 text-stone-600 hover:text-stone-700"
+            className="text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
           >
-            Don't have an account? Sign up
+            Sign up
           </Link>
-        </form>
-      </div>
-    </>
+        </p>
+      </form>
+    </div>
   );
 }

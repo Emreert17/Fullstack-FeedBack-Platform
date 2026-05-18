@@ -2,23 +2,34 @@
 import MyFeedbackCard from "./MyFeedbackCard";
 import MyFeedbackDetail from "./MyFeedbackDetail/MyFeedbackDetail";
 import { useEffect, useState } from "react";
-import SearchFeedback from "../../all-feedbacks/components/SearchFeedback";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
+import SearchFeedback from "../../all-feedbacks/components/SearchFeedback";
 
 const STATUS_GROUPS = [
-  { key: "open",        label: "Open",        dot: "bg-red-400"    },
-  { key: "in-progress", label: "In Progress", dot: "bg-blue-400"   },
-  { key: "planned",     label: "Planned",     dot: "bg-yellow-400" },
-  { key: "done",        label: "Done",        dot: "bg-green-400"  },
+  { key: "open", label: "Open", dot: "bg-red-400" },
+  { key: "in-progress", label: "In Progress", dot: "bg-blue-400" },
+  { key: "planned", label: "Planned", dot: "bg-yellow-400" },
+  { key: "done", label: "Done", dot: "bg-green-400" },
 ];
 
 export default function MyFeedbacksContainer() {
   const [page, setPage] = useState(1);
+  const [searchValue, setSearchValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [feedbacks, setFeedbacks] = useState([]);
   const [selected, setSelected] = useState(null);
+
+  const url = new URL(process.env.NEXT_PUBLIC_API_URL + "/api/feedback/my");
+
+  url.searchParams.append("page", page);
+  url.searchParams.append("limit", 10);
+
+  if (searchValue) {
+    url.searchParams.append("q", searchValue);
+  }
 
   useEffect(() => {
     const fetchMyFeedbacks = async () => {
@@ -26,14 +37,10 @@ export default function MyFeedbacksContainer() {
         setLoading(true);
         const token = localStorage.getItem("token");
 
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_API_URL +
-            `/api/feedback/my?page=${page}&limit=10`,
-          {
-            method: "GET",
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const res = await fetch(url.toString(), {
+          method: "GET",
+          headers: { Authorization: `Bearer ${token}` },
+        });
 
         const data = await res.json();
         console.log(data);
@@ -62,7 +69,13 @@ export default function MyFeedbacksContainer() {
     };
 
     fetchMyFeedbacks();
-  }, [page]);
+  }, [page, searchValue]);
+
+  useEffect(() => {
+    setFeedbacks([]);
+    setPage(1);
+    setHasMore(true);
+  }, [searchValue]);
 
   const handleDetailPage = (id) => {
     const selectedFeedback = feedbacks.find((fb) => fb._id === id);
@@ -78,7 +91,6 @@ export default function MyFeedbacksContainer() {
     <div className="grid grid-cols-6 h-screen bg-[#f8fafc]">
       {/* LEFT PANEL */}
       <div className="col-span-2 border-r border-slate-200/80 flex flex-col overflow-hidden bg-white">
-
         {/* PANEL HEADER */}
         <div className="flex items-center justify-between px-4 pt-5 pb-4 border-b border-slate-100">
           <div>
@@ -99,7 +111,11 @@ export default function MyFeedbacksContainer() {
         </div>
 
         {/* SEARCH */}
-        <SearchFeedback />
+        <SearchFeedback
+          inputValue={inputValue}
+          setSearchValue={setSearchValue}
+          setInputValue={setInputValue}
+        />
 
         {/* GROUPED LIST */}
         <div className="flex-1 overflow-y-auto no-scrollbar">
@@ -122,7 +138,9 @@ export default function MyFeedbacksContainer() {
               <div key={group.key}>
                 {/* GROUP HEADER */}
                 <div className="flex items-center gap-2 px-4 py-2.5 bg-white border-b border-slate-100 sticky top-0 z-10">
-                  <span className={`w-1.5 h-1.5 rounded-full ${group.dot} shrink-0`} />
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${group.dot} shrink-0`}
+                  />
                   <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider flex-1">
                     {group.label}
                   </span>

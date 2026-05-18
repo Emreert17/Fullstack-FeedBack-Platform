@@ -2,30 +2,29 @@ import Link from "next/link";
 import Logo from "../../../components/Logo/Logo";
 export default function RegisterHeader() {
   return (
-    <>
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center py-3 justify-between">
-          <Link href="/">
-            <Logo />
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <Link href="/">
+          <Logo />
+        </Link>
+        <span className="text-xs text-stone-500">
+          Already have an account?{" "}
+          <Link
+            className="text-indigo-600 font-medium hover:text-indigo-700 transition-colors"
+            href="/login"
+          >
+            Sign in
           </Link>
-          <span className="flex gap-1 font-medium  text-sm">
-            <span className="text-xs text-stone-600">
-              Already have an account?
-            </span>
-            <Link
-              className="text-xs text-indigo-500 hover:text-indigo-600"
-              href="/login"
-            >
-              Sign in
-            </Link>
-          </span>
-        </div>
-        <div>
-          <h3 className="font-medium text-lg py-2">
-            Easily gather, track, and manage user feedback
-          </h3>
-        </div>
+        </span>
       </div>
-    </>
+      <div>
+        <h1 className="text-xl font-semibold text-stone-900 tracking-tight">
+          Create your account
+        </h1>
+        <p className="mt-1.5 text-sm text-stone-500">
+          Start gathering and managing user feedback today
+        </p>
+      </div>
+    </div>
   );
 }

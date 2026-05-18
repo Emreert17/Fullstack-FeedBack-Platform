@@ -24,10 +24,20 @@ exports.addFeedback = async (req, res) => {
 
 exports.getFeedback = async (req, res) => {
   try {
+    const queryParam = req.query.q;
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
 
-    const feedback = await Feedback.find()
+    const query = {};
+
+    if (queryParam) {
+      query.title = {
+        $regex: queryParam,
+        $options: "i",
+      };
+    }
+
+    const feedback = await Feedback.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
@@ -64,10 +74,20 @@ exports.getFeedback = async (req, res) => {
 
 exports.getMyFeedback = async (req, res) => {
   try {
+    const queryParam = req.query.q;
     const page = req.query.page || 1;
     const limit = req.query.limit || 10;
 
-    const feedback = await Feedback.find({ userId: req.user.userID })
+    const query = { userId: req.user.userID };
+
+    if (queryParam) {
+      query.title = {
+        $regex: queryParam,
+        $options: "i",
+      };
+    }
+
+    const feedback = await Feedback.find(query)
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)

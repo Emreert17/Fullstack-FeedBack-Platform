@@ -18,7 +18,9 @@ function CustomTooltip({ active, payload, label }) {
       <p className="text-[11px] font-medium text-slate-400 mb-1">{label}</p>
       <p className="text-[14px] font-bold text-slate-900">
         {payload[0].value}{" "}
-        <span className="text-slate-400 font-normal text-[12px]">feedbacks</span>
+        <span className="text-slate-400 font-normal text-[12px]">
+          feedbacks
+        </span>
       </p>
     </div>
   );
@@ -38,7 +40,7 @@ export default function AnalyticsChart({ data }) {
         </div>
         <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-500 bg-slate-50 border border-slate-200/60 px-2.5 py-1.5 rounded-lg select-none">
           <span className="w-1.5 h-1.5 rounded-full bg-blue-500 shrink-0" />
-          Last 30 days
+          Last 7 days
         </div>
       </div>
 
