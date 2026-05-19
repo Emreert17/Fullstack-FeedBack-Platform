@@ -7,6 +7,8 @@ import LoginHeader from "./LoginHeader";
 import { loginInput } from "../../data/data";
 import LoginInput from "./LoginInput";
 import Button from "../../../components/ui/Button";
+import { handleLogin } from "../../services/authService";
+
 export default function LoginForm() {
   const { setUser } = useAuth();
   const router = useRouter();
@@ -19,26 +21,20 @@ export default function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/auth/login",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: form.email, password: form.password }),
-        },
-      );
-      const data = await res.json();
+      const data = await handleLogin({
+        username: form.username,
+        email: form.email,
+        password: form.password,
+      });
 
-      if (res.ok) {
-        localStorage.setItem("token", data.token);
-        setUser(data);
-        router.push("/dashboard/create-feedback");
-        setMessage("Login successfull");
-      } else {
-        setMessage(data.message);
-      }
+      localStorage.setItem("token", data.token);
+      setUser(data);
+
+      router.push("/dashboard/analytics");
+      setMessage("Login successfull");
     } catch (err) {
       console.log(err);
+      setMessage(err.message);
     }
   };
 

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import SearchFeedback from "../../all-feedbacks/components/SearchFeedback";
+import { getMyFeedbacks } from "../../../services/feedbackService";
 
 const STATUS_GROUPS = [
   { key: "open", label: "Open", dot: "bg-red-400" },
@@ -22,30 +23,12 @@ export default function MyFeedbacksContainer() {
   const [feedbacks, setFeedbacks] = useState([]);
   const [selected, setSelected] = useState(null);
 
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + "/api/feedback/my");
-
-  url.searchParams.append("page", page);
-  url.searchParams.append("limit", 10);
-
-  if (searchValue) {
-    url.searchParams.append("q", searchValue);
-  }
-
   useEffect(() => {
     const fetchMyFeedbacks = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token");
 
-        const res = await fetch(url.toString(), {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-        });
-
-        const data = await res.json();
-        console.log(data);
-
-        if (!res.ok) throw new Error("Something went wrong!");
+        const data = await getMyFeedbacks({ page, searchValue });
 
         if (data.length === 0) {
           setHasMore(false);

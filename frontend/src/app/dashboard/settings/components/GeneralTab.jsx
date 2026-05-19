@@ -1,19 +1,5 @@
-import { LuUserCog, LuShieldCheck, LuChevronRight } from "react-icons/lu";
-
-const SHORTCUTS = [
-  {
-    id: "profile",
-    icon: LuUserCog,
-    title: "Complete Profile",
-    description: "Add your role, company, location, and bio.",
-  },
-  {
-    id: "security",
-    icon: LuShieldCheck,
-    title: "Security",
-    description: "Update your password and protect your account.",
-  },
-];
+import { LuChevronRight } from "react-icons/lu";
+import { shortcuts } from "../../../data/data";
 
 export default function GeneralTab({ setActiveTab }) {
   return (
@@ -28,7 +14,7 @@ export default function GeneralTab({ setActiveTab }) {
       </div>
 
       <div className="px-6 py-1">
-        {SHORTCUTS.map((item, index) => {
+        {shortcuts.map((item, index) => {
           const Icon = item.icon;
           return (
             <button
@@ -37,7 +23,7 @@ export default function GeneralTab({ setActiveTab }) {
               className={`
                 w-full flex items-center gap-3.5 py-4 text-left cursor-pointer group
                 transition-colors duration-100
-                ${index < SHORTCUTS.length - 1 ? "border-b border-slate-100" : ""}
+                ${index < shortcuts.length - 1 ? "border-b border-slate-100" : ""}
               `}
             >
               <span className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center shrink-0 transition-colors duration-100 group-hover:bg-slate-200/80">

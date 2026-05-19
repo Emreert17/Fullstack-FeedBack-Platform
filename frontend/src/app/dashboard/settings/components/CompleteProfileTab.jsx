@@ -2,12 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { completeProfileInfo } from "../../../data/data";
+import { completeProfile } from "../../../services/profileService";
+import { getProfile } from "../../../services/profileService";
 
 const workNames = ["jobtitle", "department"];
 const companyNames = ["companyname", "companysize"];
 const locationNames = ["country", "city"];
 
-const pick = (names) => completeProfileInfo.filter((f) => names.includes(f.name));
+const pick = (names) =>
+  completeProfileInfo.filter((f) => names.includes(f.name));
 
 export default function CompleteProfileTab() {
   const [form, setForm] = useState({
@@ -27,12 +30,7 @@ export default function CompleteProfileTab() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_API_URL + "/api/profile",
-          { method: "GET", headers: { Authorization: `Bearer ${token}` } },
-        );
-        const data = await res.json();
+        const data = await getProfile();
         setForm({
           jobtitle: data.jobtitle || "",
           department: data.department || "",
@@ -59,28 +57,15 @@ export default function CompleteProfileTab() {
     setIsSubmitting(true);
     setMessage("");
     try {
-      const token = localStorage.getItem("token");
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/profile",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            jobtitle: form.jobtitle,
-            department: form.department,
-            companyname: form.companyname,
-            companysize: form.companysize,
-            country: form.country,
-            city: form.city,
-            bio: form.bio,
-          }),
-        },
-      );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong!");
+      const data = await completeProfile({
+        jobtitle: form.jobtitle,
+        department: form.department,
+        companyname: form.companyname,
+        companysize: form.companysize,
+        country: form.country,
+        city: form.city,
+        bio: form.bio,
+      });
       setIsError(false);
       setMessage("Profile updated successfully.");
       setForm({

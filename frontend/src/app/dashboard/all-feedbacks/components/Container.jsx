@@ -5,6 +5,8 @@ import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
 import SearchFeedback from "./SearchFeedback";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
+import { getAllFeedbacks } from "../../../services/feedbackService";
+import { getVote } from "../../../services/feedbackService";
 
 const STATUS_FILTERS = ["all", "open", "in-progress", "planned", "done"];
 const FILTER_LABELS = {
@@ -25,31 +27,15 @@ export default function AllFeedbacksContainer() {
   const [selected, setSelected] = useState(null);
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const url = new URL(process.env.NEXT_PUBLIC_API_URL + "/api/feedback");
-
-  url.searchParams.append("page", page);
-  url.searchParams.append("limit", 10);
-
-  if (searchValue) {
-    url.searchParams.append("q", searchValue);
-  }
-
-  console.log(inputValue);
-
   useEffect(() => {
     const fetchAllFeedbacks = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token");
 
-        const res = await fetch(url.toString(), {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
+        const data = await getAllFeedbacks({
+          page,
+          searchValue,
         });
-
-        const data = await res.json();
-
-        if (!res.ok) throw new Error("Something went wrong!");
 
         if (data.length === 0) {
           setHasMore(false);
@@ -85,26 +71,7 @@ export default function AllFeedbacksContainer() {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
-
-      const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/vote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          feedbackId: feedbackId,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      console.log(data);
+      const data = await getVote({ feedbackId });
 
       setAllFeedback((prev) =>
         prev.map((fb) =>

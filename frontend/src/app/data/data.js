@@ -1,4 +1,11 @@
-import { LuLayoutDashboard, LuList, LuUser, LuPlus } from "react-icons/lu";
+import {
+  LuList,
+  LuUser,
+  LuPlus,
+  LuSettings2,
+  LuUserCog,
+  LuShieldCheck,
+} from "react-icons/lu";
 import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { MdWork, MdApartment, MdLock, MdLocationOn } from "react-icons/md";
@@ -466,5 +473,29 @@ export const categoriesIcon = [
     key: "feature",
     icon: FaPuzzlePiece,
     color: "bg-yellow-100 text-yellow-500",
+  },
+];
+export const settings_tabs = [
+  { id: "general", label: "General" },
+  { id: "profile", label: "Complete Profile" },
+  { id: "security", label: "Security" },
+];
+export const tab_icons = {
+  general: LuSettings2,
+  profile: LuUserCog,
+  security: LuShieldCheck,
+};
+export const shortcuts = [
+  {
+    id: "profile",
+    icon: LuUserCog,
+    title: "Complete Profile",
+    description: "Add your role, company, location, and bio.",
+  },
+  {
+    id: "security",
+    icon: LuShieldCheck,
+    title: "Security",
+    description: "Update your password and protect your account.",
   },
 ];

@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { getAnalytics } from "../../../services/analyticsService";
 import AnalyticsHeader from "./AnlayticsHeader";
 import AnalyticsChart from "./Chart";
 import RecentCategories from "./FeedbackCategories/FeedbackCategories";
@@ -11,20 +12,7 @@ export default function AnalyticsContainer() {
   useEffect(() => {
     const getAnalyticsData = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await fetch(
-          process.env.NEXT_PUBLIC_API_URL + "/api/analytics",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-        const data = await res.json();
-        if (!res.ok) {
-          throw new Error("Something went wrong!");
-        }
+        const data = await getAnalytics();
         setAnalytics(data);
       } catch (err) {
         console.log(err);

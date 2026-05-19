@@ -1,10 +1,4 @@
-import { LuSettings2, LuUserCog, LuShieldCheck } from "react-icons/lu";
-
-const TAB_ICONS = {
-  general: LuSettings2,
-  profile: LuUserCog,
-  security: LuShieldCheck,
-};
+import { tab_icons } from "../../../data/data";
 
 export default function SettingsTabs({ tabs, activeTab, setActiveTab }) {
   return (
@@ -14,7 +8,7 @@ export default function SettingsTabs({ tabs, activeTab, setActiveTab }) {
       </p>
       <nav className="flex flex-col gap-0.5">
         {tabs.map((tab) => {
-          const Icon = TAB_ICONS[tab.id];
+          const Icon = tab_icons[tab.id];
           const isActive = activeTab === tab.id;
           return (
             <button

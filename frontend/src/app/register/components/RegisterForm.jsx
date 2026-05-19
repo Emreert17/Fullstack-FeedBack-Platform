@@ -5,6 +5,8 @@ import RegisterHeader from "./RegisterHeader";
 import { registerInput } from "../../data/data";
 import RegisterInput from "./RegisterInput";
 import Button from "../../../components/ui/Button";
+import { handleRegister } from "../../services/authService";
+
 export default function RegisterForm() {
   const router = useRouter();
   const [form, setForm] = useState({
@@ -17,28 +19,16 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/auth/register",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            username: form.username,
-            email: form.email,
-            password: form.password,
-          }),
-        },
-      );
-      const data = await res.json();
-      if (res.ok) {
-        setMessage("User created successfully");
-        router.push("/login");
-        console.log("User created");
-      } else {
-        setMessage(data.message);
-      }
+      const data = await handleRegister({
+        username: form.username,
+        email: form.email,
+        password: form.password,
+      });
+
+      setMessage("User created successfully");
+      router.push("/login");
     } catch (err) {
-      setMessage("Something went wrong");
+      setMessage(err.message);
     }
   };
 

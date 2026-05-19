@@ -6,6 +6,7 @@ import { GoInfo } from "react-icons/go";
 import PasswordInput from "../../account/security/components/PasswordInput";
 import usePasswordForm from "../../../hooks/usePasswordForm";
 import { passwordInfo } from "../../../data/data";
+import { updatePassword } from "../../../services/securityService";
 
 export default function SecurityTab() {
   const form = usePasswordForm();
@@ -22,32 +23,16 @@ export default function SecurityTab() {
     setMessage("");
 
     try {
-      const token = localStorage.getItem("token");
-
       if (password.new !== password.confirm) {
         setIsError(true);
         setIsSubmitting(false);
         return setMessage("Passwords do not match.");
       }
-
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/password/update",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            password: password.current,
-            newpassword: password.new,
-            confirmpassword: password.confirm,
-          }),
-        },
-      );
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong");
+      const data = await updatePassword({
+        password: password.current,
+        newpassword: password.new,
+        confirmpassword: password.confirm,
+      });
 
       setIsError(false);
       setMessage(data.success);
@@ -83,7 +68,11 @@ export default function SecurityTab() {
           <div className="px-6 py-6 space-y-5">
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
               {passwordInfo.map((input) => (
-                <PasswordInput key={input.name} passwordInput={input} form={form} />
+                <PasswordInput
+                  key={input.name}
+                  passwordInput={input}
+                  form={form}
+                />
               ))}
             </div>
 

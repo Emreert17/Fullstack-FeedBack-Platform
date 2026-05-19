@@ -5,19 +5,18 @@ import SettingsTabs from "./SettingsTabs";
 import GeneralTab from "./GeneralTab";
 import CompleteProfileTab from "./CompleteProfileTab";
 import SecurityTab from "./SecurityTab";
-
-const TABS = [
-  { id: "general", label: "General" },
-  { id: "profile", label: "Complete Profile" },
-  { id: "security", label: "Security" },
-];
+import { settings_tabs } from "../../../data/data";
 
 export default function SettingsContainer() {
   const [activeTab, setActiveTab] = useState("general");
 
   return (
     <div className="flex gap-8 items-start">
-      <SettingsTabs tabs={TABS} activeTab={activeTab} setActiveTab={setActiveTab} />
+      <SettingsTabs
+        tabs={settings_tabs}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
       <div className="flex-1 min-w-0">
         {activeTab === "general" && <GeneralTab setActiveTab={setActiveTab} />}
         {activeTab === "profile" && <CompleteProfileTab />}
