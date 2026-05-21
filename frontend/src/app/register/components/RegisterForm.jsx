@@ -1,36 +1,13 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import RegisterHeader from "./RegisterHeader";
 import { registerInput } from "../../data/data";
 import RegisterInput from "./RegisterInput";
 import Button from "../../../components/ui/Button";
-import { handleRegister } from "../../services/authService";
+import { useRegister } from "../../hooks/auth/useRegister";
 
 export default function RegisterForm() {
-  const router = useRouter();
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await handleRegister({
-        username: form.username,
-        email: form.email,
-        password: form.password,
-      });
-
-      setMessage("User created successfully");
-      router.push("/login");
-    } catch (err) {
-      setMessage(err.message);
-    }
-  };
+  const { message, form, handleSubmit, setForm } = useRegister();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

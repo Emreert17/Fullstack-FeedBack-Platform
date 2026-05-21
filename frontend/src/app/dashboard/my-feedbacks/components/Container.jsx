@@ -1,56 +1,32 @@
 "use client";
 import MyFeedbackCard from "./MyFeedbackCard";
 import MyFeedbackDetail from "./MyFeedbackDetail/MyFeedbackDetail";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import SearchFeedback from "../../all-feedbacks/components/SearchFeedback";
-import { getMyFeedbacks } from "../../../services/feedbackService";
-
-const STATUS_GROUPS = [
-  { key: "open", label: "Open", dot: "bg-red-400" },
-  { key: "in-progress", label: "In Progress", dot: "bg-blue-400" },
-  { key: "planned", label: "Planned", dot: "bg-yellow-400" },
-  { key: "done", label: "Done", dot: "bg-green-400" },
-];
+import { status_groups } from "../../../data/data";
+import { useMyFeedbacks } from "../../../hooks/useMyFeedbacks";
 
 export default function MyFeedbacksContainer() {
-  const [page, setPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [feedbacks, setFeedbacks] = useState([]);
-  const [selected, setSelected] = useState(null);
+  const {
+    page,
+    setPage,
+    fetchMyFeedbacks,
+    inputValue,
+    searchValue,
+    setSearchValue,
+    setInputValue,
+    loading,
+    feedbacks,
+    setFeedbacks,
+    hasMore,
+    selected,
+    setSelected,
+    setHasMore,
+  } = useMyFeedbacks();
 
   useEffect(() => {
-    const fetchMyFeedbacks = async () => {
-      try {
-        setLoading(true);
-
-        const data = await getMyFeedbacks({ page, searchValue });
-
-        if (data.length === 0) {
-          setHasMore(false);
-        } else {
-          setFeedbacks((prev) => {
-            const newData = [...prev, ...data];
-
-            const uniqueData = newData.filter(
-              (item, index, self) =>
-                index === self.findIndex((f) => f._id === item._id),
-            );
-
-            return uniqueData;
-          });
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchMyFeedbacks();
   }, [page, searchValue]);
 
@@ -65,10 +41,12 @@ export default function MyFeedbacksContainer() {
     setSelected(selectedFeedback);
   };
 
-  const groupedFeedbacks = STATUS_GROUPS.map((group) => ({
-    ...group,
-    items: feedbacks.filter((fb) => fb.status === group.key),
-  })).filter((group) => group.items.length > 0);
+  const groupedFeedbacks = status_groups
+    .map((group) => ({
+      ...group,
+      items: feedbacks.filter((fb) => fb.status === group.key),
+    }))
+    .filter((group) => group.items.length > 0);
 
   return (
     <div className="grid grid-cols-6 h-screen bg-[#f8fafc]">

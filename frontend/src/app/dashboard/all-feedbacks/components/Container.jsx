@@ -1,63 +1,37 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AllFeedbackCard from "./AllFeedbackCard";
 import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
 import SearchFeedback from "./SearchFeedback";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
-import { getAllFeedbacks } from "../../../services/feedbackService";
-import { getVote } from "../../../services/feedbackService";
-
-const STATUS_FILTERS = ["all", "open", "in-progress", "planned", "done"];
-const FILTER_LABELS = {
-  all: "All",
-  open: "Open",
-  "in-progress": "In Progress",
-  planned: "Planned",
-  done: "Done",
-};
+import { status_filters } from "../../../data/data";
+import { filter_labels } from "../../../data/data";
+import { useAllFeedbacks } from "../../../hooks/useAllFeedbacks";
 
 export default function AllFeedbacksContainer() {
-  const [page, setPage] = useState(1);
-  const [searchValue, setSearchValue] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
-  const [allFeedback, setAllFeedback] = useState([]);
-  const [selected, setSelected] = useState(null);
-  const [activeFilter, setActiveFilter] = useState("all");
+  const {
+    page,
+    setPage,
+    searchValue,
+    setSearchValue,
+    inputValue,
+    setInputValue,
+    loading,
+    setLoading,
+    hasMore,
+    setHasMore,
+    allFeedback,
+    setAllFeedback,
+    selected,
+    setSelected,
+    activeFilter,
+    setActiveFilter,
+    fetchAllFeedbacks,
+    handleVote,
+  } = useAllFeedbacks();
 
   useEffect(() => {
-    const fetchAllFeedbacks = async () => {
-      try {
-        setLoading(true);
-
-        const data = await getAllFeedbacks({
-          page,
-          searchValue,
-        });
-
-        if (data.length === 0) {
-          setHasMore(false);
-        } else {
-          setAllFeedback((prev) => {
-            const newData = [...prev, ...data];
-
-            const uniqueData = newData.filter(
-              (item, index, self) =>
-                index === self.findIndex((f) => f._id === item._id),
-            );
-
-            return uniqueData;
-          });
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchAllFeedbacks();
   }, [page, searchValue]);
 
@@ -66,28 +40,6 @@ export default function AllFeedbacksContainer() {
     setPage(1);
     setHasMore(true);
   }, [searchValue]);
-
-  const handleVote = async (e, feedbackId) => {
-    e.preventDefault();
-
-    try {
-      const data = await getVote({ feedbackId });
-
-      setAllFeedback((prev) =>
-        prev.map((fb) =>
-          fb._id === feedbackId
-            ? {
-                ...fb,
-                voteCount: data.voteCount,
-                voted: data.voted,
-              }
-            : fb,
-        ),
-      );
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const handleDetailPage = (id) => {
     const selectedFeedback = allFeedback.find((fb) => fb._id === id);
@@ -131,7 +83,7 @@ export default function AllFeedbacksContainer() {
 
         {/* STATUS FILTER TABS */}
         <div className="flex items-center gap-0.5 px-3 py-2 border-b border-slate-100 overflow-x-auto no-scrollbar">
-          {STATUS_FILTERS.map((status) => (
+          {status_filters.map((status) => (
             <button
               key={status}
               onClick={() => setActiveFilter(status)}
@@ -141,7 +93,7 @@ export default function AllFeedbacksContainer() {
                   : "text-slate-400 hover:text-slate-600 hover:bg-slate-50"
               }`}
             >
-              {FILTER_LABELS[status]}
+              {filter_labels[status]}
             </button>
           ))}
         </div>

@@ -1,42 +1,14 @@
 "use client";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
-import { useAuth } from "../../context/authContext";
 import LoginHeader from "./LoginHeader";
 import { loginInput } from "../../data/data";
 import LoginInput from "./LoginInput";
 import Button from "../../../components/ui/Button";
-import { handleLogin } from "../../services/authService";
+import { useLogin } from "../../hooks/auth/useLogin";
 
 export default function LoginForm() {
-  const { setUser } = useAuth();
-  const router = useRouter();
-  const [form, setForm] = useState({
-    email: "",
-    password: "",
-  });
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const data = await handleLogin({
-        username: form.username,
-        email: form.email,
-        password: form.password,
-      });
-
-      localStorage.setItem("token", data.token);
-      setUser(data);
-
-      router.push("/dashboard/analytics");
-      setMessage("Login successfull");
-    } catch (err) {
-      console.log(err);
-      setMessage(err.message);
-    }
-  };
+  const { handleSubmit, message, form, setForm } = useLogin();
 
   const handleChange = (e) => {
     const { name, value } = e.target;

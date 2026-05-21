@@ -1,43 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { createFeedback } from "../../../data/data";
 import FeedbackInput from "../components/FeedbackInput";
 import { MdSend, MdCheckCircle } from "react-icons/md";
 import { BsChatSquareText } from "react-icons/bs";
 import { TbLoader2 } from "react-icons/tb";
-import { createFeedbackService } from "../../../services/feedbackService";
+import { useCreateFeedback } from "../../../hooks/useCreateFeedback";
 
 export default function FeedBackForm() {
-  const [form, setForm] = useState({
-    title: "",
-    category: "feature",
-    description: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleFeedBackForm = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    try {
-      const data = await createFeedbackService({
-        title: form.title,
-        description: form.description,
-        category: form.category,
-      });
-
-      setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 3000);
-
-      setForm({ title: "", category: "feature", description: "" });
-    } catch (err) {
-      console.log(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const { form, setForm, isSubmitting, submitted, handleFeedBackForm } =
+    useCreateFeedback();
 
   return (
     <div className="max-w-2xl">

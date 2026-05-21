@@ -27,6 +27,7 @@ import { IoIosNotifications, IoIosStar } from "react-icons/io";
 import { FaFolderOpen } from "react-icons/fa6";
 import { SiGoogleanalytics } from "react-icons/si";
 
+// Meta data
 export const routeMeta = {
   "/dashboard/analytics": {
     title: "Analytics",
@@ -68,6 +69,7 @@ export const routeMeta = {
     description: "Complete your profile",
   },
 };
+//Login data
 export const loginInput = [
   {
     id: 2,
@@ -84,6 +86,7 @@ export const loginInput = [
     icon: MdLock,
   },
 ];
+// Register data
 export const registerInput = [
   {
     id: 1,
@@ -107,6 +110,7 @@ export const registerInput = [
     icon: MdLock,
   },
 ];
+// SideBar and Dropdown data
 export const dropdownLinks = [
   {
     id: 1,
@@ -159,6 +163,21 @@ export const sidebarLinks = [
       },
     ],
   },
+];
+// All Feedback data
+export const status_filters = ["all", "open", "in-progress", "planned", "done"];
+export const filter_labels = {
+  all: "All",
+  open: "Open",
+  "in-progress": "In Progress",
+  planned: "Planned",
+  done: "Done",
+};
+export const status_groups = [
+  { key: "open", label: "Open", dot: "bg-red-400" },
+  { key: "in-progress", label: "In Progress", dot: "bg-blue-400" },
+  { key: "planned", label: "Planned", dot: "bg-yellow-400" },
+  { key: "done", label: "Done", dot: "bg-green-400" },
 ];
 export const feedbackStatus = [
   { status: "open", color: "bg-red-200 text-red-800" },

@@ -2,44 +2,10 @@
 
 import PersonalInformation from "./PersonalInformation";
 import ProfileStatus from "./ProfileStatus";
-import { useState, useEffect } from "react";
-import { getProfile } from "../../../services/profileService";
+import { useProfile } from "../../../hooks/useProfile";
 
 export default function ProfileContainer() {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    jobtitle: "",
-    department: "",
-    companyname: "",
-    companysize: "",
-    country: "",
-    city: "",
-    bio: "",
-  });
-
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getProfile();
-        setForm({
-          username: data.username || "",
-          email: data.email || "",
-          jobtitle: data.jobtitle || "",
-          department: data.department || "",
-          companyname: data.companyname || "",
-          companysize: data.companysize || "",
-          country: data.country || "",
-          city: data.city || "",
-          bio: data.bio || "",
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    fetchProfile();
-  }, []);
+  const { form } = useProfile();
 
   return (
     <div className="flex flex-col lg:flex-row gap-5 items-start">

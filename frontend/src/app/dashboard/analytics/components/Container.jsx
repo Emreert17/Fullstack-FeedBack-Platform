@@ -1,25 +1,13 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getAnalytics } from "../../../services/analyticsService";
+
+import { useAnalytics } from "../../../hooks/useAnalytics";
 import AnalyticsHeader from "./AnlayticsHeader";
 import AnalyticsChart from "./Chart";
 import RecentCategories from "./FeedbackCategories/FeedbackCategories";
 import KPICards from "./kpiCards";
 
 export default function AnalyticsContainer() {
-  const [analytics, setAnalytics] = useState([]);
-
-  useEffect(() => {
-    const getAnalyticsData = async () => {
-      try {
-        const data = await getAnalytics();
-        setAnalytics(data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    getAnalyticsData();
-  }, []);
+  const { analytics } = useAnalytics();
 
   return (
     <div className="flex flex-col gap-8">
