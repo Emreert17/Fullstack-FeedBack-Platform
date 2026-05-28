@@ -1,77 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import { GoInfo } from "react-icons/go";
 import PasswordInput from "./PasswordInput";
 import SecurityHeader from "./SecurityHeader";
-import { useRouter } from "next/navigation";
-import usePasswordForm from "../../../../hooks/usePasswordForm";
 import { passwordInfo } from "../../../../data/data";
+import { useSecurity } from "../../../../hooks/useSecurity";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function UpdatePassword() {
-  const form = usePasswordForm();
-  const { password, setPassword } = form;
-
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
-
-  const handleUpdatePassword = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setMessage("");
-
-    try {
-      const token = localStorage.getItem("token");
-
-      if (password.new !== password.confirm) {
-        setIsError(true);
-        setIsSubmitting(false);
-        return setMessage("Passwords do not match.");
-      }
-
-      const res = await fetch(
-        process.env.NEXT_PUBLIC_API_URL + "/api/password/update",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            password: password.current,
-            newpassword: password.new,
-            confirmpassword: password.confirm,
-          }),
-        },
-      );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || "Something went wrong");
-      }
-
-      setIsError(false);
-      setMessage(data.success);
-      setPassword({ current: "", new: "", confirm: "" });
-
-      setTimeout(() => {
-        logoutUser();
-      }, 1500);
-    } catch (err) {
-      setIsError(true);
-      setMessage(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const logoutUser = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
+  const { message, isError, isSubmitting, handleUpdatePassword, form } =
+    useSecurity();
 
   return (
     <div className="max-w-xl">
@@ -132,28 +70,7 @@ export default function UpdatePassword() {
                 `}
               >
                 {isSubmitting ? (
-                  <>
-                    <svg
-                      className="w-4 h-4 animate-spin"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                      />
-                    </svg>
-                    Updating...
-                  </>
+                  <AiOutlineLoading3Quarters className="w-4 h-4 animate-spin" />
                 ) : (
                   "Update Password"
                 )}

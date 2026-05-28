@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { completeProfileInfo } from "../../../data/data";
-import { completeProfile } from "../../../services/profileService";
-import { getProfile } from "../../../services/profileService";
+import { useCompleteProfile } from "../../../hooks/useCompleteProfile";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const workNames = ["jobtitle", "department"];
 const companyNames = ["companyname", "companysize"];
@@ -13,76 +13,23 @@ const pick = (names) =>
   completeProfileInfo.filter((f) => names.includes(f.name));
 
 export default function CompleteProfileTab() {
-  const [form, setForm] = useState({
-    jobtitle: "",
-    department: "",
-    companyname: "",
-    companysize: "",
-    country: "",
-    city: "",
-    bio: "",
-  });
-
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    fetchProfile,
+    handleSubmit,
+    form,
+    setForm,
+    message,
+    isError,
+    isSubmitting,
+  } = useCompleteProfile();
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const data = await getProfile();
-        setForm({
-          jobtitle: data.jobtitle || "",
-          department: data.department || "",
-          companyname: data.companyname || "",
-          companysize: data.companysize || "",
-          country: data.country || "",
-          city: data.city || "",
-          bio: data.bio || "",
-        });
-      } catch (err) {
-        console.log(err);
-      }
-    };
     fetchProfile();
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setMessage("");
-    try {
-      const data = await completeProfile({
-        jobtitle: form.jobtitle,
-        department: form.department,
-        companyname: form.companyname,
-        companysize: form.companysize,
-        country: form.country,
-        city: form.city,
-        bio: form.bio,
-      });
-      setIsError(false);
-      setMessage("Profile updated successfully.");
-      setForm({
-        jobtitle: data.jobtitle || "",
-        department: data.department || "",
-        companyname: data.companyname || "",
-        companysize: data.companysize || "",
-        country: data.country || "",
-        city: data.city || "",
-        bio: data.bio || "",
-      });
-    } catch (err) {
-      setIsError(true);
-      setMessage(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   const bioField = completeProfileInfo.find((f) => f.name === "bio");
@@ -189,28 +136,10 @@ export default function CompleteProfileTab() {
             className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-lg cursor-pointer bg-slate-900 text-white hover:bg-slate-700 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
-              <>
-                <svg
-                  className="w-3.5 h-3.5 animate-spin"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                  />
-                </svg>
-                Saving...
-              </>
+              <span>
+                <AiOutlineLoading3Quarters className="w-3.5 h-3.5 animate-spin" />
+                " Saving..."
+              </span>
             ) : (
               "Save Changes"
             )}
