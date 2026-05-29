@@ -1,56 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { GoInfo } from "react-icons/go";
-import PasswordInput from "../../account/security/components/PasswordInput";
-import usePasswordForm from "../../../hooks/usePasswordForm";
+import PasswordInput from "./PasswordInput";
 import { passwordInfo } from "../../../data/data";
-import { updatePassword } from "../../../services/securityService";
+import { useSecurity } from "../../../hooks/useSecurity";
 
 export default function SecurityTab() {
-  const form = usePasswordForm();
-  const { password, setPassword } = form;
-
-  const [message, setMessage] = useState("");
-  const [isError, setIsError] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const router = useRouter();
-
-  const handleUpdatePassword = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setMessage("");
-
-    try {
-      if (password.new !== password.confirm) {
-        setIsError(true);
-        setIsSubmitting(false);
-        return setMessage("Passwords do not match.");
-      }
-      const data = await updatePassword({
-        password: password.current,
-        newpassword: password.new,
-        confirmpassword: password.confirm,
-      });
-
-      setIsError(false);
-      setMessage(data.success);
-      setPassword({ current: "", new: "", confirm: "" });
-      setTimeout(() => logoutUser(), 1500);
-    } catch (err) {
-      setIsError(true);
-      setMessage(err.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const logoutUser = () => {
-    localStorage.removeItem("token");
-    router.push("/login");
-  };
-
+  const { message, isError, isSubmitting, handleUpdatePassword, form } =
+    useSecurity();
   return (
     <div className="flex flex-col gap-4">
       {/* Password card */}

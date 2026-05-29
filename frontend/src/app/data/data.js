@@ -220,26 +220,7 @@ export const createFeedback = [
     placeholder: "Describe your feedback...",
   },
 ];
-export const quickLinks = [
-  {
-    id: 1,
-    title: "Complete profile",
-    description: "Add your company, location, bio and skills",
-    badge: "Incomplete",
-    icon: PiUserCircleCheckBold,
-    href: "/dashboard/account/complete-profile",
-    color: "bg-blue-200",
-  },
-  {
-    id: 2,
-    title: "Upgrade password",
-    description: "Change your current login password",
-    badge: "Recommended",
-    icon: MdLock,
-    href: "/dashboard/account/security",
-    color: "bg-amber-200",
-  },
-];
+
 export const passwordInfo = [
   {
     id: 1,
@@ -518,3 +499,7 @@ export const shortcuts = [
     description: "Update your password and protect your account.",
   },
 ];
+// Complete Profile Data
+export const workNames = ["jobtitle", "department"];
+export const companyNames = ["companyname", "companysize"];
+export const locationNames = ["country", "city"];

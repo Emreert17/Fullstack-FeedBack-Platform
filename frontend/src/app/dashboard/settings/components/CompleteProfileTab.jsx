@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import ProfileField from "./ProfileField";
+import { Section, Divider } from "./SectionandDivider";
 import { completeProfileInfo } from "../../../data/data";
 import { useCompleteProfile } from "../../../hooks/useCompleteProfile";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-
-const workNames = ["jobtitle", "department"];
-const companyNames = ["companyname", "companysize"];
-const locationNames = ["country", "city"];
+import { workNames, companyNames, locationNames } from "../../../data/data";
 
 const pick = (names) =>
   completeProfileInfo.filter((f) => names.includes(f.name));
@@ -136,9 +135,9 @@ export default function CompleteProfileTab() {
             className="flex items-center gap-2 text-[13px] font-semibold px-5 py-2.5 rounded-lg cursor-pointer bg-slate-900 text-white hover:bg-slate-700 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isSubmitting ? (
-              <span>
-                <AiOutlineLoading3Quarters className="w-3.5 h-3.5 animate-spin" />
-                " Saving..."
+              <span className="flex items-center gap-2">
+                <AiOutlineLoading3Quarters className="w-3.5 h-3.5 animate-spin [animation-duration:1.2s]" />
+                Saving...
               </span>
             ) : (
               "Save Changes"
@@ -147,47 +146,5 @@ export default function CompleteProfileTab() {
         </div>
       </div>
     </form>
-  );
-}
-
-function Section({ label, children }) {
-  return (
-    <section>
-      <p className="text-[10px] font-semibold uppercase tracking-widest text-slate-400 mb-3.5">
-        {label}
-      </p>
-      {children}
-    </section>
-  );
-}
-
-function Divider() {
-  return <div className="border-t border-slate-100" />;
-}
-
-function ProfileField({ field, value, onChange }) {
-  return (
-    <div className="flex flex-col gap-1.5">
-      <label
-        htmlFor={field.name}
-        className="text-[10px] font-semibold uppercase tracking-widest text-slate-400"
-      >
-        {field.label}
-      </label>
-      <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">
-          {field.icon && React.createElement(field.icon, { size: 13 })}
-        </span>
-        <input
-          id={field.name}
-          type="text"
-          name={field.name}
-          value={value}
-          onChange={onChange}
-          placeholder={field.placeholder}
-          className="w-full text-[13px] text-slate-700 font-medium py-2.5 pl-8 pr-3 bg-slate-50/40 border border-slate-200 rounded-lg outline-none transition-colors duration-100 hover:border-slate-300 focus:bg-white focus:border-blue-400 focus:ring-[3px] focus:ring-blue-50 placeholder:text-slate-300"
-        />
-      </div>
-    </div>
   );
 }
