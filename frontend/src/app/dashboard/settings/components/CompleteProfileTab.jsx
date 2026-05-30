@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import ProfileField from "./ProfileField";
 import { Section, Divider } from "./SectionandDivider";
-import { completeProfileInfo } from "../../../data/profile/completeProfile";
+import {
+  completeProfileInfo,
+  sections,
+} from "../../../data/profile/completeProfile";
 import { useCompleteProfile } from "../../../hooks/useCompleteProfile";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { sections } from "../../../data/data";
 
 const pick = (names) =>
   completeProfileInfo.filter((f) => names.includes(f.name));

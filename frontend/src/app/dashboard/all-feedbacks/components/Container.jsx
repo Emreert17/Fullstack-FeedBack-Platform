@@ -5,8 +5,8 @@ import AllFeedbackDetail from "./AllFeedbackDetail/AllFeedbackDetail";
 import SearchFeedback from "./SearchFeedback";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
-import { status_filters } from "../../../data/data";
-import { filter_labels } from "../../../data/data";
+import { status_filters } from "../../../data/feedback/allfeedback";
+import { filter_labels } from "../../../data/feedback/allfeedback";
 import { useAllFeedbacks } from "../../../hooks/useAllFeedbacks";
 
 export default function AllFeedbacksContainer() {
@@ -18,7 +18,6 @@ export default function AllFeedbacksContainer() {
     inputValue,
     setInputValue,
     loading,
-    setLoading,
     hasMore,
     setHasMore,
     allFeedback,

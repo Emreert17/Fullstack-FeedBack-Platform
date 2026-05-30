@@ -2,6 +2,10 @@ import { FaBuilding, FaGlobe } from "react-icons/fa";
 import { MdWork, MdApartment, MdLocationOn } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
 
+const workNames = ["jobtitle", "department"];
+const companyNames = ["companyname", "companysize"];
+const locationNames = ["country", "city"];
+
 export const completeProfileInfo = [
   {
     id: 1,
@@ -57,5 +61,20 @@ export const completeProfileInfo = [
     label: "Bio",
     input: false,
     placeholder: "A short bio about yourself...",
+  },
+];
+
+export const sections = [
+  {
+    label: "Work Details",
+    fields: workNames,
+  },
+  {
+    label: "Company",
+    fields: companyNames,
+  },
+  {
+    label: "Location",
+    fields: locationNames,
   },
 ];

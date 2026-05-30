@@ -1,4 +1,4 @@
-import { profileSection } from "../../../data/data";
+import { profileSection } from "../../../data/profile/personalinformation";
 import { profileStatus } from "../../../data/profile/profileStatus";
 import { Divider, Section } from "./SectionandDivider";
 import ProfileInput from "./ProfileInput";
