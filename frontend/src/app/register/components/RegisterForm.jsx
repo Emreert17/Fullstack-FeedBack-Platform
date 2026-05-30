@@ -1,7 +1,7 @@
 "use client";
 
 import RegisterHeader from "./RegisterHeader";
-import { registerInput } from "../../data/data";
+import { registerInput } from "../../data/auth/register";
 import RegisterInput from "./RegisterInput";
 import Button from "../../../components/ui/Button";
 import { useRegister } from "../../hooks/auth/useRegister";

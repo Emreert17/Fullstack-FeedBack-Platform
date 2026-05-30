@@ -1,6 +1,6 @@
 import React from "react";
 import { transformUppercase } from "../../../../utils/upperCase";
-import { categoriesIcon } from "../../../../data/data";
+import { categoriesIcon } from "../../../../data/analytics/categories";
 
 export default function Categories({ item, total }) {
   const percentage = Math.ceil((item.count / total) * 100);
@@ -21,7 +21,9 @@ export default function Categories({ item, total }) {
         <span className="text-[13px] font-medium text-slate-700 leading-snug">
           {transformUppercase(item._id)}
         </span>
-        <span className="text-[11px] text-slate-400 mt-0.5">{item.count} items</span>
+        <span className="text-[11px] text-slate-400 mt-0.5">
+          {item.count} items
+        </span>
       </div>
 
       {/* Progress bar */}

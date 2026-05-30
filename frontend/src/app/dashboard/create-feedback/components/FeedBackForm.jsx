@@ -1,6 +1,6 @@
 "use client";
 
-import { createFeedback } from "../../../data/data";
+import { createFeedback } from "../../../data/feedback/createfeedback";
 import FeedbackInput from "../components/FeedbackInput";
 import { MdSend, MdCheckCircle } from "react-icons/md";
 import { BsChatSquareText } from "react-icons/bs";

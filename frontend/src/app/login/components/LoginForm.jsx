@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import LoginHeader from "./LoginHeader";
-import { loginInput } from "../../data/data";
+import { loginInput } from "../../data/auth/login";
 import LoginInput from "./LoginInput";
 import Button from "../../../components/ui/Button";
 import { useLogin } from "../../hooks/auth/useLogin";

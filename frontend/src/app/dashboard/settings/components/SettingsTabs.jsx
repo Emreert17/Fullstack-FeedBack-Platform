@@ -1,4 +1,4 @@
-import { tab_icons } from "../../../data/data";
+import { tab_icons } from "../../../data/settings/tabs";
 
 export default function SettingsTabs({ tabs, activeTab, setActiveTab }) {
   return (

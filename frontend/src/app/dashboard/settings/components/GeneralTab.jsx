@@ -1,5 +1,5 @@
 import { LuChevronRight } from "react-icons/lu";
-import { shortcuts } from "../../../data/data";
+import { shortcuts } from "../../../data/settings/shortcuts";
 
 export default function GeneralTab({ setActiveTab }) {
   return (

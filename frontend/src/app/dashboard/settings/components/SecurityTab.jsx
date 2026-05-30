@@ -2,7 +2,7 @@
 
 import { GoInfo } from "react-icons/go";
 import PasswordInput from "./PasswordInput";
-import { passwordInfo } from "../../../data/data";
+import { passwordInfo } from "../../../data/settings/security";
 import { useSecurity } from "../../../hooks/useSecurity";
 
 export default function SecurityTab() {

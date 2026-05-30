@@ -1,4 +1,4 @@
-import { FeatureCards } from "../../../app/data/data";
+import { FeatureCards } from "../../../app/data/landing/features";
 import FeatureCard from "./FeatureCard";
 
 export default function AllFeatures() {

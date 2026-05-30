@@ -5,7 +5,7 @@ import SettingsTabs from "./SettingsTabs";
 import GeneralTab from "./GeneralTab";
 import CompleteProfileTab from "./CompleteProfileTab";
 import SecurityTab from "./SecurityTab";
-import { settings_tabs } from "../../../data/data";
+import { settings_tabs } from "../../../data/settings/tabs";
 
 export default function SettingsContainer() {
   const [activeTab, setActiveTab] = useState("general");

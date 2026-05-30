@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { TiPlus } from "react-icons/ti";
 import SearchFeedback from "../../all-feedbacks/components/SearchFeedback";
-import { status_groups } from "../../../data/data";
+import { status_groups } from "../../../data/feedback/myfeedback";
 import { useMyFeedbacks } from "../../../hooks/useMyFeedbacks";
 
 export default function MyFeedbacksContainer() {

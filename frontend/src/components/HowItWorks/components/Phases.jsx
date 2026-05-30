@@ -1,4 +1,4 @@
-import { howItWorks } from "../../../app/data/data";
+import { howItWorks } from "../../../app/data/landing/howitworks";
 import Phase from "./Phase";
 
 export default function Phases() {

@@ -3,7 +3,7 @@ import { useAuth } from "../../../app/context/authContext";
 import { MdLogout } from "react-icons/md";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { dropdownLinks } from "../../../app/data/data";
+import { dropdownLinks } from "../../../app/data/navigation/dropdown";
 import DropdownLink from "./DropdownLink";
 
 export default function DropdownMenu({ setIsOpen }) {

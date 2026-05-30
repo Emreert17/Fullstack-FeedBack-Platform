@@ -1,169 +1,3 @@
-import {
-  LuList,
-  LuUser,
-  LuPlus,
-  LuSettings2,
-  LuUserCog,
-  LuShieldCheck,
-} from "react-icons/lu";
-import { IoAnalytics, IoDocumentTextOutline } from "react-icons/io5";
-import { CgProfile } from "react-icons/cg";
-import { MdWork, MdApartment, MdLock, MdLocationOn } from "react-icons/md";
-import { FiUser, FiSettings } from "react-icons/fi";
-import {
-  FaEnvelope,
-  FaBuilding,
-  FaGlobe,
-  FaComments,
-  FaBug,
-  FaPalette,
-  FaUser,
-  FaRocket,
-  FaPuzzlePiece,
-} from "react-icons/fa";
-import { PiUserCircleCheckBold } from "react-icons/pi";
-import { HiUserGroup } from "react-icons/hi";
-import { IoIosNotifications, IoIosStar } from "react-icons/io";
-import { FaFolderOpen } from "react-icons/fa6";
-import { SiGoogleanalytics } from "react-icons/si";
-
-// Meta data
-export const routeMeta = {
-  "/dashboard/analytics": {
-    title: "Analytics",
-    description: "Track feedback performance with charts and insights",
-  },
-
-  "/dashboard/all-feedbacks": {
-    title: "All Feedbacks",
-    description: "Browse and explore all user feedback",
-  },
-
-  "/dashboard/my-feedbacks": {
-    title: "My Feedbacks",
-    description: "Manage feedback you have created",
-  },
-
-  "/dashboard/create-feedback": {
-    title: "Create Feedback",
-    description: "Submit new feedback بسهولة",
-  },
-
-  "/dashboard/profile": {
-    title: "Profile",
-    description: "View and edit your profile information",
-  },
-
-  "/dashboard/account": {
-    title: "Account",
-    description: "Manage your account details and preferences",
-  },
-
-  "/dashboard/account/security": {
-    title: "Security",
-    description: "Update your password and secure your account",
-  },
-
-  "/dashboard/account/complete-profile": {
-    title: "Complete Profile",
-    description: "Complete your profile",
-  },
-};
-//Login data
-export const loginInput = [
-  {
-    id: 2,
-    name: "email",
-    type: "email",
-    placeholder: "Email",
-    icon: FaEnvelope,
-  },
-  {
-    id: 3,
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-    icon: MdLock,
-  },
-];
-// Register data
-export const registerInput = [
-  {
-    id: 1,
-    name: "username",
-    type: "text",
-    placeholder: "Full Name",
-    icon: CgProfile,
-  },
-  {
-    id: 2,
-    name: "email",
-    type: "email",
-    placeholder: "Email",
-    icon: FaEnvelope,
-  },
-  {
-    id: 3,
-    name: "password",
-    type: "password",
-    placeholder: "Password",
-    icon: MdLock,
-  },
-];
-// SideBar and Dropdown data
-export const dropdownLinks = [
-  {
-    id: 1,
-    text: "Profile",
-    icon: FiUser,
-    href: "/dashboard/profile",
-  },
-  {
-    id: 2,
-    text: "Settings",
-    icon: FiSettings,
-    href: "/dashboard/settings",
-  },
-];
-export const sidebarLinks = [
-  {
-    id: 1,
-    title: "Dashboard",
-    items: [
-      {
-        id: 1,
-        label: "Analytics",
-        href: "/dashboard/analytics",
-        icon: IoAnalytics,
-      },
-    ],
-  },
-
-  {
-    id: 2,
-    title: "Feedback",
-    items: [
-      {
-        id: 1,
-        label: "All Feedbacks",
-        href: "/dashboard/all-feedbacks",
-        icon: LuList,
-      },
-      {
-        id: 2,
-        label: "My Feedbacks",
-        href: "/dashboard/my-feedbacks",
-        icon: LuUser,
-      },
-      {
-        id: 3,
-        label: "Create Feedback",
-        href: "/dashboard/create-feedback",
-        icon: LuPlus,
-      },
-    ],
-  },
-];
 // All Feedback data
 export const status_filters = ["all", "open", "in-progress", "planned", "done"];
 export const filter_labels = {
@@ -173,12 +7,7 @@ export const filter_labels = {
   planned: "Planned",
   done: "Done",
 };
-export const status_groups = [
-  { key: "open", label: "Open", dot: "bg-red-400" },
-  { key: "in-progress", label: "In Progress", dot: "bg-blue-400" },
-  { key: "planned", label: "Planned", dot: "bg-yellow-400" },
-  { key: "done", label: "Done", dot: "bg-green-400" },
-];
+
 export const feedbackStatus = [
   { status: "open", color: "bg-red-200 text-red-800" },
   { status: "planned", color: "bg-yellow-200 text-yellow-800" },
@@ -191,315 +20,48 @@ export const statusSpan = [
   { status: "in-progress", color: "bg-blue-300" },
   { status: "done", color: "bg-green-300" },
 ];
-export const createFeedback = [
-  {
-    id: 1,
-    name: "title",
-    label: "Title",
-    type: "input",
-    placeholder: "Enter a title",
-  },
-  {
-    id: 2,
-    name: "category",
-    label: "Category",
-    type: "select",
-    options: [
-      { value: "feature", label: "Feature" },
-      { value: "bug", label: "Bug" },
-      { value: "ui", label: "UI" },
-      { value: "ux", label: "UX" },
-      { value: "enhancement", label: "Enhancement" },
-    ],
-  },
-  {
-    id: 3,
-    name: "description",
-    label: "Description",
-    type: "textarea",
-    placeholder: "Describe your feedback...",
-  },
-];
 
-export const passwordInfo = [
-  {
-    id: 1,
-    label: "Current password",
-    name: "current",
-    placeholder: "Enter your current password",
-    colSpan: true,
-  },
-  {
-    id: 2,
-    label: "New password",
-    name: "new",
-    placeholder: "New password",
-    colSpan: false,
-  },
-  {
-    id: 3,
-    label: "Confirm new password",
-    name: "confirm",
-    placeholder: "Confirm password",
-    colSpan: false,
-  },
-];
-export const completeProfileInfo = [
-  {
-    id: 1,
-    name: "jobtitle",
-    label: "Job title",
-    input: true,
-    placeholder: "Job title",
-    icon: MdWork,
-  },
-  {
-    id: 2,
-    name: "department",
-    label: "Department",
-    input: true,
-    placeholder: "Department",
-    icon: FaBuilding,
-  },
-  {
-    id: 3,
-    name: "companyname",
-    label: "Company name",
-    input: true,
-    placeholder: "Company name",
-    icon: MdApartment,
-  },
-  {
-    id: 4,
-    name: "companysize",
-    label: "Company size",
-    input: true,
-    placeholder: "Company size",
-    icon: HiUserGroup,
-  },
-  {
-    id: 5,
-    name: "country",
-    label: "Country",
-    input: true,
-    placeholder: "Country",
-    icon: FaGlobe,
-  },
-  {
-    id: 6,
-    name: "city",
-    label: "City",
-    input: true,
-    placeholder: "City",
-    icon: MdLocationOn,
-  },
-  {
-    id: 7,
-    name: "bio",
-    label: "Bio",
-    input: false,
-    placeholder: "A short bio about yourself...",
-  },
-];
-export const FeatureCards = [
-  {
-    id: 1,
-    title: "Feedback Collection",
-    description:
-      "Easily gather feedback from users in one centralized platform.",
-    icon: IoDocumentTextOutline,
-  },
-  {
-    id: 2,
-    title: "Smart Analytics",
-    description:
-      "Understand trends and insights with powerful feedback analytics.",
-    icon: SiGoogleanalytics,
-  },
-  {
-    id: 3,
-    title: "Organized Dashboard",
-    description:
-      "Keep all feedback structured and accessible in a clean dashboard.",
-    icon: FaFolderOpen,
-  },
-  {
-    id: 4,
-    title: "Prioritization System",
-    description: "Rank and prioritize feedback to focus on what matters most.",
-    icon: IoIosStar,
-  },
-  {
-    id: 5,
-    title: "User Engagement",
-    description:
-      "Interact with users and respond to their feedback in real-time.",
-    icon: FaComments,
-  },
-  {
-    id: 6,
-    title: "Notifications",
-    description:
-      "Stay updated with instant alerts on new feedback and updates.",
-    icon: IoIosNotifications,
-  },
-];
-export const StatsInfo = [
-  { id: 1, title: "2,400+", description: "Teams using feedly" },
-  { id: 2, title: "1.2M", description: "Feedbacks collected" },
-  { id: 3, title: "74%", description: "Average resolution rate" },
-  { id: 4, title: "4.9★", description: "Average customer rating" },
-];
-export const howItWorks = [
-  {
-    id: 1,
-    title: "Create your account",
-    description:
-      "Sign up in under a minute. No credit card required. Invite your team right away.",
-  },
-  {
-    id: 2,
-    title: "Collect feedback",
-    description:
-      "Share your feedback board link or embed a widget — users submit ideas, bugs and requests directly.",
-  },
-  {
-    id: 3,
-    title: "Prioritise & resolve",
-    description:
-      "Review, triage and close feedback with statuses. Users get notified when their request is resolved.",
-  },
-];
-export const profileStatus = [
-  {
-    id: 1,
-    name: "username",
-    label: "Full Name",
-    input: true,
-    placeholder: "Full Name",
-    icon: CgProfile,
-  },
-  {
-    id: 2,
-    name: "email",
-    label: "Email",
-    input: true,
-    placeholder: "Email",
-    icon: FaEnvelope,
-  },
-  {
-    id: 3,
-    name: "jobtitle",
-    label: "Role",
-    input: true,
-    placeholder: "Role",
-    icon: MdWork,
-  },
-  {
-    id: 4,
-    name: "department",
-    label: "Department",
-    input: true,
-    placeholder: "Department",
-    icon: FaBuilding,
-  },
-  {
-    id: 5,
-    name: "companyname",
-    label: "Company name",
-    input: true,
-    placeholder: "Company name",
-    icon: MdApartment,
-  },
-  {
-    id: 6,
-    name: "companysize",
-    label: "Company size",
-    input: true,
-    placeholder: "Company size",
-    icon: HiUserGroup,
-  },
-  {
-    id: 7,
-    name: "country",
-    label: "Country",
-    input: true,
-    placeholder: "Country",
-    icon: FaGlobe,
-  },
-  {
-    id: 8,
-    name: "city",
-    label: "City",
-    input: true,
-    placeholder: "City",
-    icon: MdLocationOn,
-  },
-  {
-    id: 9,
-    name: "bio",
-    label: "Bio",
-    input: false,
-    placeholder: "A short bio about yourself...",
-  },
-];
-export const categoriesIcon = [
-  {
-    id: 1,
-    key: "bug",
-    icon: FaBug,
-    color: "bg-red-100 text-red-500",
-  },
-  {
-    id: 2,
-    key: "ui",
-    icon: FaPalette,
-    color: "bg-blue-100 text-blue-500",
-  },
-  {
-    id: 3,
-    key: "ux",
-    icon: FaUser,
-    color: "bg-purple-100 text-purple-500",
-  },
-  {
-    id: 4,
-    key: "enhancement",
-    icon: FaRocket,
-    color: "bg-green-100 text-green-500",
-  },
-  {
-    id: 5,
-    key: "feature",
-    icon: FaPuzzlePiece,
-    color: "bg-yellow-100 text-yellow-500",
-  },
-];
-export const settings_tabs = [
-  { id: "general", label: "General" },
-  { id: "profile", label: "Complete Profile" },
-  { id: "security", label: "Security" },
-];
-export const tab_icons = {
-  general: LuSettings2,
-  profile: LuUserCog,
-  security: LuShieldCheck,
-};
-export const shortcuts = [
-  {
-    id: "profile",
-    icon: LuUserCog,
-    title: "Complete Profile",
-    description: "Add your role, company, location, and bio.",
-  },
-  {
-    id: "security",
-    icon: LuShieldCheck,
-    title: "Security",
-    description: "Update your password and protect your account.",
-  },
-];
 // Complete Profile Data
+const identityNames = ["username", "email"];
 export const workNames = ["jobtitle", "department"];
 export const companyNames = ["companyname", "companysize"];
 export const locationNames = ["country", "city"];
+export const sections = [
+  {
+    label: "Work Details",
+    fields: workNames,
+  },
+  {
+    label: "Company",
+    fields: companyNames,
+  },
+  {
+    label: "Location",
+    fields: locationNames,
+  },
+];
+//
+const bioNames = ["bio"];
+
+export const profileSection = [
+  {
+    label: "Profile",
+    fields: identityNames,
+  },
+  {
+    label: "Identity",
+    fields: workNames,
+  },
+  {
+    label: "Work",
+    fields: companyNames,
+  },
+  {
+    label: "Location",
+    fields: locationNames,
+  },
+  {
+    label: "Bio",
+    fields: bioNames,
+  },
+];

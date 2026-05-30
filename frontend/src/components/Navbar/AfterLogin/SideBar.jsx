@@ -1,4 +1,4 @@
-import { sidebarLinks } from "../../../app/data/data";
+import { sidebarLinks } from "../../../app/data/navigation/sidebar";
 import Tab from "./Tab";
 
 export default function SideBar() {

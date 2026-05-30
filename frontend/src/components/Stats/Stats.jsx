@@ -1,4 +1,4 @@
-import { StatsInfo } from "../../app/data/data";
+import { StatsInfo } from "../../app/data/landing/stats";
 import Badge from "../Badge/Badge";
 import Stat from "./components/Stat";
 import StatImage from "./components/StatImage";

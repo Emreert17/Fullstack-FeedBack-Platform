@@ -3,10 +3,10 @@
 import { useEffect } from "react";
 import ProfileField from "./ProfileField";
 import { Section, Divider } from "./SectionandDivider";
-import { completeProfileInfo } from "../../../data/data";
+import { completeProfileInfo } from "../../../data/profile/completeProfile";
 import { useCompleteProfile } from "../../../hooks/useCompleteProfile";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { workNames, companyNames, locationNames } from "../../../data/data";
+import { sections } from "../../../data/data";
 
 const pick = (names) =>
   completeProfileInfo.filter((f) => names.includes(f.name));
@@ -16,20 +16,15 @@ export default function CompleteProfileTab() {
     fetchProfile,
     handleSubmit,
     form,
-    setForm,
     message,
     isError,
     isSubmitting,
+    handleChange,
   } = useCompleteProfile();
 
   useEffect(() => {
     fetchProfile();
   }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
-  };
 
   const bioField = completeProfileInfo.find((f) => f.name === "bio");
 
@@ -47,51 +42,25 @@ export default function CompleteProfileTab() {
         </div>
 
         <div className="px-6 py-6 space-y-6">
-          <Section label="Work Details">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {pick(workNames).map((field) => (
-                <ProfileField
-                  key={field.id}
-                  field={field}
-                  value={form[field.name]}
-                  onChange={handleChange}
-                />
-              ))}
+          {sections.map((section, index) => (
+            <div key={section.label}>
+              <Section label={section.label}>
+                <div className="grid grid-cols-2 gap-x-6 gap-y-4 pb-3">
+                  {pick(section.fields).map((field) => (
+                    <ProfileField
+                      key={field.id}
+                      field={field}
+                      value={form[field.name]}
+                      onChange={handleChange}
+                    />
+                  ))}
+                </div>
+              </Section>
+
+              {index !== sections.length - 1 && <Divider />}
             </div>
-          </Section>
-
+          ))}
           <Divider />
-
-          <Section label="Company">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {pick(companyNames).map((field) => (
-                <ProfileField
-                  key={field.id}
-                  field={field}
-                  value={form[field.name]}
-                  onChange={handleChange}
-                />
-              ))}
-            </div>
-          </Section>
-
-          <Divider />
-
-          <Section label="Location">
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {pick(locationNames).map((field) => (
-                <ProfileField
-                  key={field.id}
-                  field={field}
-                  value={form[field.name]}
-                  onChange={handleChange}
-                />
-              ))}
-            </div>
-          </Section>
-
-          <Divider />
-
           <Section label="About">
             {bioField && (
               <div className="flex flex-col gap-1.5">

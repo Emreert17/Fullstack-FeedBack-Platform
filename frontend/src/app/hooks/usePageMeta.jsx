@@ -1,6 +1,6 @@
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { routeMeta } from "../data/data";
+import { routeMeta } from "../data/navigation/routeMeta";
 
 export default function usePageMeta() {
   const pathName = usePathname();
